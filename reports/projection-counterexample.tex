@@ -1,0 +1,113 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,booktabs}
+\usepackage[a4paper,margin=24mm,headheight=14pt]{geometry}
+\usepackage{xcolor,fancyhdr}
+\definecolor{ink}{HTML}{183D4B}
+\usepackage[colorlinks=true,urlcolor=ink,linkcolor=ink,pdftitle={A spectral projection counterexample in Masullo's proposed proof of GRH},pdfauthor={AI-generated review, attribution supplied as GPT 6.2 Astra}]{hyperref}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Masullo's proposed GRH proof\enspace /\enspace Final mathematical audit}
+\fancyfoot[L]{\footnotesize\sffamily Manuscript of 20 November 2026}\fancyfoot[R]{\small\sffamily\thepage}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}\raggedbottom
+\newcommand{\R}{\mathbb R}\newcommand{\Q}{\mathbb Q}\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}\newcommand{\A}{\mathbb A}
+\newcommand{\topic}[1]{\par\medskip\textbf{#1}\par}
+\newcommand{\page}[1]{\newpage{\Large\bfseries\color{ink}#1}\par\smallskip}
+\begin{document}
+{\LARGE\bfseries\color{ink}A spectral projection counterexample in Masullo's proposed proof of GRH}\par
+{\small\sffamily 21 November 2026\quad|\quad Version 1.0.0\quad|\quad Supplement to the technical audit}
+\topic{Abstract}
+In Theorem 10.4.3.5(3), the proposed finite-rank kernels have range in the spectral subspace. The operator identified as their limit sends a specific spectral vector outside that subspace. The contradiction occurs in the rational zeta component at the central parameter, for a single smooth test supported at norms greater than one, simultaneously for every positive strip width. The same construction at width zero disproves two operator convergence assertions in Chapter 11. The argument uses one classically known critical-line zero and allows any multiplicity. Masullo himself recognizes the relevant failure of commutation on p.~458. The contribution here is an explicit test and a proof of the incompatibility with the later theorems. Pages 4--5 give separate checks on two basis assertions.
+\topic{The arithmetic Hilbert space and a spectral vector}
+Take \(F=\Q\), trivial compact character, \(a=1/2\), \(s=4\), \(I=[-\alpha,\alpha]\), \(\alpha\ge0\). In the radial component write \(x=\log|g|\). The norm-one group has volume one. By (9.2.2.41), p.~417, the space is
+\[
+ H_\alpha=L^2(\R,w_\alpha\,dx),\qquad w_\alpha(x)=e^{2\alpha|x|}(1+x^2)^2.
+\]
+Let \(M_\alpha\) be the closure of the radial theta image twisted by \(|g|^{1/2}\), as in (10.2.1.1--2) and (10.2.2.1). Write \(P\) for the orthogonal projection onto \(M_\alpha^\perp\), and \(G=1-P\). The inner product is linear in its first argument. Translation \(T_y h(x)=h(x-y)\) preserves \(M_\alpha\) for each real \(y\), by translating the adelic seed and absorbing the scalar from the twist.
+ 
+Fix a positive \(\gamma\) with \(\zeta(1/2+i\gamma)=0\), which exists by Hardy's theorem. The vector
+\[
+                 u_\alpha(x)=e^{-i\gamma x}/w_\alpha(x)
+\]
+belongs to \(H_\alpha\) since \(\int 1/w_\alpha<\infty\). Its pairing against a vector \(m\) is \(\langle m,u_\alpha\rangle=\int m(x)e^{i\gamma x}dx\). This vanishes on \(M_\alpha\).
+
+Here is a direct justification of that last step. A radial theta generator is obtained by averaging over finite units. Each averaged finite Schwartz--Bruhat test is a finite linear combination of indicators of \(d\widehat{\Z}\), \(d>0\) rational: locally this follows by subtracting nested valuation balls, with constancy near zero. For such an indicator, unfolding the theta Mellin integral for \(\Re z>1\) gives
+\[
+       \zeta(z)d^{-z}\int_0^\infty(f_\infty(t)+f_\infty(-t))t^z\,dt/t .
+\]
+The integral factor is holomorphic for \(\Re z>0\). For a linear combination from the polar-free space, Poisson summation gives rapid decay of the full theta sum at both log ends, so continuation evaluates this identity at \(z=1/2+i\gamma\). The result is zero. Continuity in \(H_\alpha\) extends it to the closure. This proves \(Pu_\alpha=u_\alpha\) independently of the disputed basis theorems.
+
+\page{A single test that works at every width}
+Take any nonnegative \(b\in C_c^\infty((1,2))\) with \(\int b(t)dt=1\), in the \emph{logarithmic} variable. For an explicit choice, normalize \(\exp(-1/[(t-5/4)(7/4-t)])\) on \((5/4,7/4)\) and extend by zero. Define
+\[
+  \phi(g)=e^{-i\gamma\log|g|}\,b(\log|g|).
+\]
+It is a smooth compactly supported radial test on \(C_\Q\), supported at norms \(>1\). Ordinary left convolution (9.3.1.2) gives, with \(A=A(\phi)\),
+\[
+     w_\alpha(x)(Au_\alpha)(x)=e^{-i\gamma x}D_\alpha(x),\qquad
+     D_\alpha(x)=\int b(t)\frac{w_\alpha(x)}{w_\alpha(x-t)}dt .
+\]
+\topic{The translates of a theta test detect an ordinary square-integrable error}
+Choose a nonzero, nonnegative, even \(q\in C_c^\infty(\R)\) supported in \(1<|y|<3/2\). Take the adelic seed with real factor \(f(y)=q(y)-2q(2y)\) and finite factor \(1_{\widehat\Z}\). Both \(f(0)\) and \(\int f\) vanish. Hence
+\[
+     h(x)=e^{x/2}\sum_{n\in\Z\setminus\{0\}}f(ne^x)\ \in M_\alpha .
+\]
+For \(1<e^x<3/2\), the sum equals \(2q(e^x)\), so \(h\ne0\). It vanishes for \(e^x\ge3/2\). At the other end Poisson summation rewrites the sum as \(e^{-x}\sum_{n\ne0}\widehat f(ne^{-x})\), which decays faster than every power of \(e^{x}\) as \(x\to-\infty\). Thus \(h\in L^1\cap L^2(dx)\) and \(\widehat h\) is entire and nonzero almost everywhere on the real line. Its translates span a dense subspace of \emph{unweighted} \(L^2(dx)\). Indeed, if \(r\in L^2(dx)\) annihilates every translate, uniqueness of the Fourier transform of the \(L^1\) function \(\widehat r\,\overline{\widehat h}\) gives \(r=0\).
+\topic{Proof that \(GAu_\alpha\ne0\)}
+Suppose \(Au_\alpha\in M_\alpha^\perp\). Then \(e^{-i\gamma x}D_\alpha(x)\) pairs to zero against every \(T_yh\) in the ordinary integral. Shifting by one and multiplying by the constant phase to cancel the shift, the same holds for
+\[
+               r(x)=e^{-i\gamma x}\,[D_\alpha(x+1)-D_\alpha(x)].
+\]
+For large positive or negative \(x\), uniformly in \(t\in[1,2]\), the rational part of the weight ratio is \(1+O(|x|^{-1})\). The exponential part is exactly \(e^{\pm2\alpha t}\). Thus \(D_\alpha(x)=c_\pm+O(|x|^{-1})\) at the two ends, where \(c_\pm=\int b(t)e^{\pm2\alpha t}dt\). Hence \(r\in L^2(dx)\), and density forces \(r=0\). Continuity now makes \(D_\alpha\) one-periodic. A periodic continuous function with a limit at \(+\infty\) is constant. For \(\alpha>0\), \(c_+>c_-\). For \(\alpha=0\), \(c_+=1\) but \(D_0(0)=\int b(t)(1+t^2)^{-2}dt<1/4\). Either case is a contradiction. In particular \(GAPu_\alpha\ne0\) for every \(\alpha\ge0\).
+
+\page{Three consequences for the printed theorems}
+\topic{1. The kernel identification fails for every positive strip width}
+Theorem 10.4.3.5(1--3), pp.~472--473, identifies the output vectors of (10.4.3.43) as \(S_a\psi_j\in\operatorname{Ran}P\). Each finite sum \(L_N\) consequently satisfies \(G L_N=0\). Projective tensor norm convergence implies operator norm convergence under (10.4.3.44), since \(\|\ell\otimes v\|_{\rm op}\le\|\ell\|\|v\|\). Even a pointwise limit of these operators has its range in the closed space \(\operatorname{Ran}P\). But (10.4.3.45) identifies the limit with \(AP\), while page~2 gives \(GAPu_\alpha\ne0\). These assertions cannot both hold. The printed cross-reference is to (10.4.3.42) in the quotient. Reading it as (10.4.3.43), the intended lifted sum in the stated tensor space, gives exactly the contradiction above.
+
+The order \(PA\) would pass this range test. Changing the order changes the claimed kernel. Definition 10.4.3.7, p.~473, constructs the geometric kernel by subtracting the spectral one, and p.~520 invokes that definition in (12.5.1.4). Ordinary cyclic trace identities under suitable trace-class hypotheses can identify scalar traces of differently ordered products. They do not identify the operators or their truncated kernels.
+\topic{2. Both Chapter 11 approximations already fail pointwise on one vector}
+Use \(\alpha=0\), \(S=\{\infty\}\). The character is unramified and \(\operatorname{Pic}(\Z)=1\). Let \(Q_L\) be either of the Paley--Wiener projections from Definitions 11.2.1.1 and 11.2.1.3. Their ranges are subspaces of \(M_0\), so \(Q_Lu_0=0\) for every level \(L\). By (10.4.1.6), p.~457, the truncated geometric operator is \(T=M_\rho GA\). Since \(GAu_0\ne0\), some compact log interval carries positive squared norm of this vector. Choose a smooth cutoff equal to one there by Definition 9.3.3.1, p.~427. For this fixed admissible cutoff,
+\[
+                  TQ_Lu_0=0\quad\text{for all }L,\qquad Tu_0\ne0 .
+\]
+Equations (11.2.1.4) and (11.2.1.9), pp.~488--489, therefore fail even in the strong operator topology. If \(Q_L\to G\) strongly as asserted and \(T\) is trace class, then \(TQ_L\to TG\) in trace norm by finite-rank approximation and self-adjointness of the projections. The omitted term is \(T(1-G)\), shown here to be nonzero. Its scalar trace is a separate question. The argument does not disprove (11.2.1.5) or (11.2.1.10) on its own.
+\topic{What was previously known}
+Remark 10.4.1.4, pp.~457--458, expressly recognizes the nonvanishing off-diagonal block. An earlier public objection also distinguishes the two orders while granting the spectral trace for its argument. Neither observation alone supplies the smooth arithmetic witness or the test of the two Paley--Wiener limits above. These are additional failures in the supplied proof of the trace formula. The witness uses a zero \emph{on} the critical line. \href{https://github.com/mccorvie/riemann-masullo/issues/2469\#issuecomment-7057757877}{Public discussion of the ordering}\enspace|\enspace\href{https://github.com/mccorvie/riemann-masullo/issues/1169\#issuecomment-7057208991}{Conditional approach to the two traces}.
+
+\page{An actual multiple zero at the jet endpoint}
+\textbf{Theorem 10.2.1.1, (10.2.1.5--6), p.~440, and Theorem 10.2.2.1, pp.~445--446.}
+The divergence at \(s=3,m=1\) had already been reported as a scalar endpoint issue. Here a specific number field realizes the required multiplicity for the global theorem, which explicitly assumes \(s>1\).
+
+Let \(F=\Q(\sqrt[3]{2},\zeta_3)\) be the splitting field of \(X^3-2\), and \(K=\Q(\zeta_3)\). The polynomial is Eisenstein at 2 and has nonsquare discriminant \(-108\). Its Galois group is \(S_3\), with \(\operatorname{Gal}(F/K)=C_3\). Class field theory for this cyclic extension supplies a nontrivial cubic Hecke character \(\psi\) of \(K\). Abelian factorization gives
+\[
+                   \zeta_F(z)=\zeta_K(z)L_K(z,\psi)L_K(z,\bar\psi).
+\]
+Complex conjugation on \(K\) acts on \(C_3\) by inversion and permutes the ideals of each given norm. It carries the primitive character \(\psi\) to \(\bar\psi\), also carrying the conductor to the conjugate conductor. Relabeling ideals in the Dirichlet series gives \(L_K(z,\psi)=L_K(z,\bar\psi)\) first for \(\Re z>1\), and then identically. Thus the factor is a square.
+
+There are nontrivial zeros \(\beta+i\gamma\) of this positive-degree primitive Hecke \(L\)-function in \(0<\beta<1\), by its classical zero-counting theorem. At each such zero \(\zeta_K\) is holomorphic, so the multiplicity \(N\) of the zero of \(\zeta_F\) is at least two. Neither its exact ordinate nor the assertion \(\beta=1/2\) is needed.
+
+In the theorem take the trivial character of \(F\), \(a=\beta\), and \(s=3\). Its printed count is \(\min(N,\lfloor(s-1)/2\rfloor+1)=2\), so it includes the index \(m=1\). The claimed vector has infinite squared dual norm:
+\[
+   \operatorname{vol}(C_F^1)\int_{\R}\frac{x^2}{(1+x^2)^{3/2}}\,dx=+\infty .
+\]
+Indeed the integrand is asymptotic to \(|x|^{-1}\). For a positive strip choose \(a=\beta+\alpha\) and put this same zero on its lower edge \(b=-\alpha\). At \(x\to-\infty\), the squared exponential numerator \(e^{2bx}\) cancels the exponential weight in the denominator. The same divergent tail occurs in the boundary case of the strip theorem.
+
+The membership criterion on the line, or on the active strip edge, is \(2m+1<s\). With \(s>1\) the number of surviving indices is \(\min\{N,\lceil(s-1)/2\rceil\}\). This corrects the single membership test. It leaves the separate projection contradiction at \(s=4\) in place. The argument here does not challenge the manuscript's proposed degree cap in Chapter 13: the field has degree six and the exhibited multiplicity is at least two. The underlying square factor is classical. \href{https://github.com/mccorvie/riemann-masullo/issues/2469\#issuecomment-7057757662}{Earlier public endpoint calculation, item 19}.
+
+\page{A test of the lifting lemma in a Hilbert space}
+\textbf{Lemma 10.4.2.5, pp.~461--462.} The Markushevich alternative permits a normalized complete biorthogonal system as input and asserts in particular that its lifts form a Schauder basis in their closed span. These are different properties. Here the quotient map is the identity, so there is no freedom to select better lifts.
+
+Let \(E=F=\bigoplus_{n\ge1}^{\ell^2}(\C^n\oplus\C^n)\), \(E_0=0\), and use orthonormal vectors \(e_i,f_j\) in block \(n\). Write \(v=n^{-1/2}\sum_j f_j\). Within this block list the following pairs in the indicated order, and concatenate blocks in increasing order of \(n\):
+\[
+  (x_i,x_i^*)=(e_i+v,e_i)\quad(1\le i\le n),\qquad
+  (x_{n+j},x_{n+j}^*)=(f_j,f_j-n^{-1/2}\textstyle\sum_i e_i)
+       \quad(1\le j\le n).
+\]
+We identify Hilbert vectors with their coefficient functionals. Taking scalar products gives the Kronecker deltas within and across blocks. Each family spans every finite block and thus is total. Every displayed vector and every dual vector has norm \(1\) or \(\sqrt 2\), meeting the normalization convention of Terminology 10.2.1.2, p.~444. If unit norms for the primal vectors are required, divide the first \(n\) by \(\sqrt2\) and multiply their duals by \(\sqrt2\). Partial sums remain identical.
+
+Since the duals are total and \(E_0=0\), condition (10.4.2.17) forces each lift to equal the corresponding primal vector. Apply the partial-sum operator just after the first \(n\) vectors of block \(n\) to the unit vector \(z=n^{-1/2}\sum_i e_i\) of that block. Its image is \(z+\sqrt n\,v\), of norm \(\sqrt{1+n}\). The partial-sum norms are unbounded. A Schauder basis gives pointwise convergence of partial sums for every vector, and therefore uniformly bounded partial sums by the uniform boundedness principle. This disproves the asserted Schauder conclusion. Individual lifts and their two-sided norm estimates can still exist. Page~464 invokes the lemma for smooth lifts, so this example alone does not disprove the trace claimed there.
+
+\topic{Sources, provenance and scope}
+All manuscript numbering refers to the 940-page file dated 20 November 2026. For Hardy's theorem see G. H. Hardy, \emph{Sur les zéros de la fonction \(\zeta(s)\) de Riemann}, C. R. Acad. Sci. Paris 158 (1914), 1012--1014. For the spectral setting see A. Connes, \emph{Trace formula in noncommutative geometry and the zeros of the Riemann zeta function}, §III and Appendix I. The arithmetic side of page~4 uses classical abelian zeta factorization and the primitive Hecke zero count. \href{https://math216.wordpress.com/wp-content/uploads/2026/11/the-music-of-the-primes.pdf}{Manuscript}\enspace|\enspace\href{https://arxiv.org/abs/math/9811068}{Connes}.
+
+The mathematical investigation, independent agent cross-checks, writing and release preparation for this audit were entirely AI-generated in Codex. The model attribution supplied for this release is \textbf{GPT 6.2 Astra}. Mathematical sources and previous objections retain their original attribution. The search did not establish priority for any of the applications above. The proofs are analytic arguments; accompanying exact calculations check selected finite identities. The audit has not undergone human peer review.
+\end{document}
