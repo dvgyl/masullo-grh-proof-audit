@@ -1,55 +1,142 @@
-\documentclass[11pt]{article}
-\usepackage[T1]{fontenc}\usepackage{lmodern,microtype,amsmath,amssymb,booktabs,tabularx,array}
-\usepackage[a4paper,left=23mm,right=23mm,top=23mm,bottom=22mm,headheight=14pt]{geometry}
-\usepackage{xcolor,fancyhdr,titlesec}
-\definecolor{ink}{HTML}{183D4B}
-\usepackage[colorlinks=true,urlcolor=ink,linkcolor=ink,pdftitle={An adversarial audit of the trace-formula argument in The Music of the Primes}]{hyperref}
-\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\textsf{Masullo's proposed GRH proof \enspace/\enspace Technical audit}}
-\fancyfoot[L]{\footnotesize\textsf{Draft examined: 20 November 2026}}\fancyfoot[R]{\small\textsf{\thepage}}
-\renewcommand{\headrulewidth}{0.3pt}\titleformat{\section}{\Large\bfseries\color{ink}}{}{0pt}{}
-\titleformat{\subsection}{\large\bfseries\color{ink}}{}{0pt}{}
-\titlespacing*{\section}{0pt}{0pt}{8pt}\titlespacing*{\subsection}{0pt}{10pt}{3pt}
-\setlength{\parindent}{0pt}\setlength{\parskip}{5pt plus 1pt}\raggedbottom
-\setlength{\abovedisplayskip}{6pt}\setlength{\belowdisplayskip}{6pt}
+\documentclass[11pt,reqno]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amssymb}
+\usepackage[a4paper,textwidth=145mm,textheight=225mm,centering]{geometry}
+\usepackage[hidelinks,pdfauthor={GPT 6.2 Astra},pdftitle={Spectral projections and normalization in a proposed trace formula for Hecke L-functions}]{hyperref}
+\allowdisplaybreaks[2]
+\emergencystretch=1em
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\numberwithin{equation}{section}
+\title[Spectral projections and a proposed trace formula]{Spectral projections and normalization in a proposed trace formula for Hecke \(L\)-functions}
+\author{GPT 6.2 Astra}
+\thanks{Entirely AI-generated mathematical analysis and exposition. Project direction and request for independent verification: deyvium (GitHub: dvgyl). The model attribution is supplied by the requester.}
+\date{21 November 2026}
+\subjclass[2020]{Primary 11M26; Secondary 11M41, 47B10}
+\keywords{Hecke \(L\)-functions, trace formula, Mellin transform, spectral projection}
 \newcommand{\Q}{\mathbb Q}\newcommand{\R}{\mathbb R}\newcommand{\C}{\mathbb C}\newcommand{\Z}{\mathbb Z}
 \newcommand{\A}{\mathbb A}\newcommand{\M}{\mathcal M}\newcommand{\id}{\mathbf1}
-\newcommand{\loc}[1]{{\small\textsf{\color{ink}#1}}\par}
-\newcommand{\pagen}[1]{\newpage\section*{#1}}
 \newcommand{\prior}{\href{https://github.com/mccorvie/riemann-masullo/issues/2469\#issuecomment-7057757662}{public audit of Chapters 11--12}}
 \begin{document}
-\section*{An adversarial audit of the trace-formula argument\\in \textit{The Music of the Primes}}
-\loc{21 November 2026 \quad|\quad Manuscript by Alessandro Maria Masullo \quad|\quad 940-page release}
-\textbf{Finding.} The supplied proof does not establish the Generalized Riemann Hypothesis for Hecke \(L\)-functions. The main identity, Theorem 12.5.1.1, fails a test over \(\Q(\sqrt5)\) with the measures specified by the author. In that test the geometric side is exactly \(1\); for a full strip the printed spectral side is about \(0.4304\). A normalization change repairs this discrepancy. Independent counterexamples invalidate steps used to establish the identity even over \(\Q\), where the normalization factor is already one.
+\begin{abstract}
+We examine the trace identity proposed by Masullo for the zeros of Hecke \(L\)-functions in a vertical strip. Over the rationals, one smooth test function sends a spectral vector outside the closed range containing every proposed kernel approximant. The same test invalidates two Paley--Wiener convergence assertions. Independently, quadratic zeta factorization over \(\mathbb Q(\sqrt5)\) contradicts the global Haar normalization at every positive strip width. We also exhibit a Mellin divisor with simple, sparse zeros for which the proposed quotient basis fails after closure. With canonical normalization, the restricted explicit formula at arbitrarily small widths would imply the Generalized Riemann Hypothesis in each character component.
+\end{abstract}
+\maketitle
+\section{Introduction}
+The explicit formula relates local terms over the places of a number field to a sum over the full divisor of its completed zeta function. Masullo proposes to recover the same local expression using only zeros in a prescribed vertical strip \cite{masullo}. The proof passes from a spectral quotient to an operator on an ambient weighted Hilbert space. This passage matters because convolution preserves the geometric subspace while its orthogonal complement can fail to be invariant. The spectral interpretation of critical zeros in this setting goes back to Connes \cite{connes}.
 
-\textbf{The remaining mathematical question.} With the normalization corrected, a trace identity for every positive strip width and every smooth radial test of norm \(>1\) already implies RH in the zeta component. The same argument applies in each Hecke component. Thus an error in an auxiliary estimate cannot by itself disprove the corrected identity. Its proof must account for the global trace of the zeros omitted by the strip. This comparison is asserted on manuscript p.~520.
+We begin with an arithmetic test of the lifted operator, then examine the normalization of the main identity and the interpolation and localization arguments used to derive it. All numbered references to Masullo and all manuscript page numbers refer to the 940-page version of 20 November 2026. The counterexamples concern the proposed proof. None requires an off-line zero.
 
-The strongest new test here concerns Lemma 9.3.2.5. Even after closing its convolution ideal, simple zeros with bounded local density can make individual terms of the asserted basis expansion diverge. A second test compares three fixed probes across two fields at every positive strip width.
+\section{The spectral projection in the rational component}
 
-\subsection*{Results and where to find the proofs}
-{\small\renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\textwidth}{@{}p{2.65cm}Xr@{}}\toprule
-Manuscript pages & Result of this audit & Audit page\\\midrule
-425--426 & Sparse-pair counterexample to the proposed basis in a closed quotient & 2\\
-403, 519, 560, 623 & Exact geometric value, all-width normalization test, and three-probe factorization test & 3--4\\
-425--426 & Mellin zero count, nonclosed principal ideal and decreasing projections & 5--6\\
-446--447, 451, 463 & Actual zeta interpolation norms and the boundary-jet endpoint & 7\\
-476--483, 493--496 & Orbital mass, a repaired special case and vanishing shell weights & 8\\
-514--520; 28--30 & Global/local bridge, cutoff, test classes and Montel limit & 9--10\\
-519--522, 623 & Chapter 13 on its own tests; precise implication for GRH & 11--12\\
-& Public precedents and arithmetic reproduction & 13\\\bottomrule
-\end{tabularx}}
-\textbf{Scope and method.} This audit was generated entirely by AI in Codex, with the requested attribution GPT 6.2 Astra. Two agent readings checked the counterexamples. The proofs below use symbolic arguments and identified classical results. Exact-arithmetic checks accompany the report. This is a review of the dependency chain and specified auxiliary assertions, not a verification of every result in 940 pages or a claim of human peer review. Several objections were already public; page 13 records the overlaps. All theorem and equation numbers refer to the supplied version.
+Take \(F=\Q\), trivial compact character, \(a=1/2\), \(s=4\), \(I=[-\alpha,\alpha]\), \(\alpha\ge0\). In the radial component write \(x=\log|g|\). The norm-one group has volume one. By (9.2.2.41), p.~417, the space is
+\[
+ H_\alpha=L^2(\R,w_\alpha\,dx),\qquad w_\alpha(x)=e^{2\alpha|x|}(1+x^2)^2.
+\]
+Let \(M_\alpha\) be the closure of the radial theta image twisted by \(|g|^{1/2}\), as in (10.2.1.1--2) and (10.2.2.1). Write \(P\) for the orthogonal projection onto \(M_\alpha^\perp\), and \(G=1-P\). The inner product is linear in its first argument. Translation \(T_y h(x)=h(x-y)\) preserves \(M_\alpha\) for each real \(y\), by translating the adelic seed and absorbing the scalar from the twist.
+ 
+Fix a positive \(\gamma\) with \(\zeta(1/2+i\gamma)=0\), which exists by Hardy's theorem \cite{hardy}. The vector
+\[
+                 u_\alpha(x)=e^{-i\gamma x}/w_\alpha(x)
+\]
+belongs to \(H_\alpha\) since \(\int 1/w_\alpha<\infty\). Its pairing against a vector \(m\) is \(\langle m,u_\alpha\rangle=\int m(x)e^{i\gamma x}dx\). This vanishes on \(M_\alpha\).
 
-\pagen{A counterexample that survives closing the convolution ideal}
-\loc{Lemma 9.3.2.5, pp.~425--426 \quad|\quad One character; a closed quotient; only simple, sparse zeros}
-The lemma asserts an absolute Schauder basis with the evaluations at zeros as coefficient functionals. The elementary Gaussian example on audit p.~6 could be evaded by closing the image. Here is a different obstruction that also rules out an \emph{ordinary} Schauder basis with these prescribed coefficients in the closed quotient. The entire divisor has boundedly many zeros per unit interval, much stronger sparsity than Lemma 9.3.2.4 requests.
+Here is a direct justification of that last step. A radial theta generator is obtained by averaging over finite units. Each averaged finite Schwartz--Bruhat test is a finite linear combination of indicators of \(d\widehat{\Z}\), \(d>0\) rational: locally this follows by subtracting nested valuation balls, with constancy near zero. For such an indicator, unfolding the theta Mellin integral for \(\Re z>1\) gives
+\[
+       \zeta(z)d^{-z}\int_0^\infty(f_\infty(t)+f_\infty(-t))t^z\,dt/t .
+\]
+The integral factor is holomorphic for \(\Re z>0\). For a linear combination from the polar-free space, Poisson summation gives rapid decay of the full theta sum at both log ends, so continuation evaluates this identity at \(z=1/2+i\gamma\). The result is zero. Continuity in \(H_\alpha\) extends it to the closure. This proves \(Pu_\alpha=u_\alpha\) independently of the disputed basis theorems.
 
+\begin{theorem}\label{thm:projection}
+With the notation above there is a single radial test \(\phi\), supported at norms greater than one, such that \((1-P)A(\phi)Pu_\alpha\ne0\) for every \(\alpha\ge0\).
+\end{theorem}
+\begin{proof}
+Take any nonnegative \(b\in C_c^\infty((1,2))\) with \(\int b(t)dt=1\), in the \emph{logarithmic} variable. For an explicit choice, normalize \(\exp(-1/[(t-5/4)(7/4-t)])\) on \((5/4,7/4)\) and extend by zero. Define
+\[
+  \phi(g)=e^{-i\gamma\log|g|}\,b(\log|g|).
+\]
+It is a smooth compactly supported radial test on \(C_\Q\), supported at norms \(>1\). Ordinary left convolution (9.3.1.2) gives, with \(A=A(\phi)\),
+\[
+     w_\alpha(x)(Au_\alpha)(x)=e^{-i\gamma x}D_\alpha(x),\qquad
+     D_\alpha(x)=\int b(t)\frac{w_\alpha(x)}{w_\alpha(x-t)}dt .
+\]
+\par\smallskip
+Choose a nonzero, nonnegative, even \(q\in C_c^\infty(\R)\) supported in \(1<|y|<3/2\). Take the adelic seed with real factor \(f(y)=q(y)-2q(2y)\) and finite factor \(1_{\widehat\Z}\). Both \(f(0)\) and \(\int f\) vanish. Hence
+\[
+     h(x)=e^{x/2}\sum_{n\in\Z\setminus\{0\}}f(ne^x)\ \in M_\alpha .
+\]
+For \(1<e^x<3/2\), the sum equals \(2q(e^x)\), so \(h\ne0\). It vanishes for \(e^x\ge3/2\). At the other end Poisson summation rewrites the sum as \(e^{-x}\sum_{n\ne0}\widehat f(ne^{-x})\), which decays faster than every power of \(e^{x}\) as \(x\to-\infty\). Thus \(h\in L^1\cap L^2(dx)\) and \(\widehat h\) is entire and nonzero almost everywhere on the real line. Its translates span a dense subspace of \emph{unweighted} \(L^2(dx)\). Indeed, if \(r\in L^2(dx)\) annihilates every translate, uniqueness of the Fourier transform of the \(L^1\) function \(\widehat r\,\overline{\widehat h}\) gives \(r=0\).
+\par\smallskip
+Suppose \(Au_\alpha\in M_\alpha^\perp\). Then \(e^{-i\gamma x}D_\alpha(x)\) pairs to zero against every \(T_yh\) in the ordinary integral. Shifting by one and multiplying by the constant phase to cancel the shift, the same holds for
+\[
+               r(x)=e^{-i\gamma x}\,[D_\alpha(x+1)-D_\alpha(x)].
+\]
+For large positive or negative \(x\), uniformly in \(t\in[1,2]\), the rational part of the weight ratio is \(1+O(|x|^{-1})\). The exponential part is exactly \(e^{\pm2\alpha t}\). Thus \(D_\alpha(x)=c_\pm+O(|x|^{-1})\) at the two ends, where \(c_\pm=\int b(t)e^{\pm2\alpha t}dt\). Hence \(r\in L^2(dx)\), and density forces \(r=0\). Continuity now makes \(D_\alpha\) one-periodic. A periodic continuous function with a limit at \(+\infty\) is constant. For \(\alpha>0\), \(c_+>c_-\). For \(\alpha=0\), \(c_+=1\) but \(D_0(0)=\int b(t)(1+t^2)^{-2}dt<1/4\). Either case is a contradiction. In particular \(GAPu_\alpha\ne0\) for every \(\alpha\ge0\).
+
+\end{proof}
+\begin{corollary}
+The kernel identification in (10.4.3.45) is incompatible with the stated approximation. At width zero the operator limits in (11.2.1.4) and (11.2.1.9) fail in the strong operator topology.
+\end{corollary}
+\begin{proof}
+
+Theorem 10.4.3.5(1--3), pp.~472--473, identifies the output vectors of (10.4.3.43) as \(S_a\psi_j\in\operatorname{Ran}P\). Each finite sum \(L_N\) consequently satisfies \(G L_N=0\). Projective tensor norm convergence implies operator norm convergence under (10.4.3.44), since \(\|\ell\otimes v\|_{\rm op}\le\|\ell\|\|v\|\). Even a pointwise limit of these operators has its range in the closed space \(\operatorname{Ran}P\). But (10.4.3.45) identifies the limit with \(AP\), while Theorem~\ref{thm:projection} gives \(GAPu_\alpha\ne0\). These assertions cannot both hold. The printed cross-reference is to (10.4.3.42) in the quotient. Reading it as (10.4.3.43), the intended lifted sum in the stated tensor space, gives exactly the contradiction above.
+
+The order \(PA\) would pass this range test. Changing the order changes the claimed kernel. Definition 10.4.3.7, p.~473, constructs the geometric kernel by subtracting the spectral one, and p.~520 invokes that definition in (12.5.1.4). Ordinary cyclic trace identities under suitable trace-class hypotheses can identify scalar traces of differently ordered products. They do not identify the operators or their truncated kernels.
+\par\smallskip
+Use \(\alpha=0\), \(S=\{\infty\}\). The character is unramified and \(\operatorname{Pic}(\Z)=1\). Let \(Q_L\) be either of the Paley--Wiener projections from Definitions 11.2.1.1 and 11.2.1.3. Their ranges are subspaces of \(M_0\), so \(Q_Lu_0=0\) for every level \(L\). By (10.4.1.6), p.~457, the truncated geometric operator is \(T=M_\rho GA\). Since \(GAu_0\ne0\), some compact log interval carries positive squared norm of this vector. Choose a smooth cutoff equal to one there by Definition 9.3.3.1, p.~427. For this fixed admissible cutoff,
+\[
+                  TQ_Lu_0=0\quad\text{for all }L,\qquad Tu_0\ne0 .
+\]
+Equations (11.2.1.4) and (11.2.1.9), pp.~488--489, therefore fail even in the strong operator topology. If \(Q_L\to G\) strongly as asserted and \(T\) is trace class, then \(TQ_L\to TG\) in trace norm by finite-rank approximation and self-adjointness of the projections. The omitted term is \(T(1-G)\), shown here to be nonzero. Its scalar trace is a separate question. The argument does not disprove (11.2.1.5) or (11.2.1.10) on its own.
+\end{proof}\subsection{Relation to prior objections}
+Remark 10.4.1.4, pp.~457--458, expressly recognizes the nonvanishing off-diagonal block. An earlier public objection also distinguishes the two orders while granting the spectral trace for its argument. Neither observation alone supplies the smooth arithmetic witness or the test of the two Paley--Wiener limits above. These are additional failures in the supplied proof of the trace formula. The witness uses a zero \emph{on} the critical line. \href{https://github.com/mccorvie/riemann-masullo/issues/2469\#issuecomment-7057757877}{Public discussion of the ordering}\enspace|\enspace\href{https://github.com/mccorvie/riemann-masullo/issues/1169\#issuecomment-7057208991}{Conditional approach to the two traces}.
+
+\subsection{An actual multiple zero at the jet endpoint}
+\textbf{Theorem 10.2.1.1, (10.2.1.5--6), p.~440, and Theorem 10.2.2.1, pp.~445--446.}
+The divergence at \(s=3,m=1\) had already been reported as a scalar endpoint issue. Here a specific number field realizes the required multiplicity for the global theorem, which explicitly assumes \(s>1\).
+
+Let \(F=\Q(\sqrt[3]{2},\zeta_3)\) be the splitting field of \(X^3-2\), and \(K=\Q(\zeta_3)\). The polynomial is Eisenstein at 2 and has nonsquare discriminant \(-108\). Its Galois group is \(S_3\), with \(\operatorname{Gal}(F/K)=C_3\). Class field theory for this cyclic extension supplies a nontrivial cubic Hecke character \(\psi\) of \(K\). Abelian factorization gives
+\[
+                   \zeta_F(z)=\zeta_K(z)L_K(z,\psi)L_K(z,\bar\psi).
+\]
+Complex conjugation on \(K\) acts on \(C_3\) by inversion and permutes the ideals of each given norm. It carries the primitive character \(\psi\) to \(\bar\psi\), also carrying the conductor to the conjugate conductor. Relabeling ideals in the Dirichlet series gives \(L_K(z,\psi)=L_K(z,\bar\psi)\) first for \(\Re z>1\), and then identically. Thus the factor is a square.
+
+There are nontrivial zeros \(\beta+i\gamma\) of this positive-degree primitive Hecke \(L\)-function in \(0<\beta<1\), by its classical zero-counting theorem. At each such zero \(\zeta_K\) is holomorphic, so the multiplicity \(N\) of the zero of \(\zeta_F\) is at least two. Neither its exact ordinate nor the assertion \(\beta=1/2\) is needed.
+
+In the theorem take the trivial character of \(F\), \(a=\beta\), and \(s=3\). Its printed count is \(\min(N,\lfloor(s-1)/2\rfloor+1)=2\), so it includes the index \(m=1\). The claimed vector has infinite squared dual norm:
+\[
+   \operatorname{vol}(C_F^1)\int_{\R}\frac{x^2}{(1+x^2)^{3/2}}\,dx=+\infty .
+\]
+Indeed the integrand is asymptotic to \(|x|^{-1}\). For a positive strip choose \(a=\beta+\alpha\) and put this same zero on its lower edge \(b=-\alpha\). At \(x\to-\infty\), the squared exponential numerator \(e^{2bx}\) cancels the exponential weight in the denominator. The same divergent tail occurs in the boundary case of the strip theorem.
+
+The membership criterion on the line, or on the active strip edge, is \(2m+1<s\). With \(s>1\) the number of surviving indices is \(\min\{N,\lceil(s-1)/2\rceil\}\). This corrects the single membership test. It leaves the separate projection contradiction at \(s=4\) in place. The argument here does not challenge the manuscript's proposed degree cap in Chapter 13: the field has degree six and the exhibited multiplicity is at least two. The underlying square factor is classical. \href{https://github.com/mccorvie/riemann-masullo/issues/2469\#issuecomment-7057757662}{Earlier public endpoint calculation, item 19}.
+
+\subsection{A test of the lifting lemma in a Hilbert space}
+\textbf{Lemma 10.4.2.5, pp.~461--462.} The Markushevich alternative permits a normalized complete biorthogonal system as input and asserts in particular that its lifts form a Schauder basis in their closed span. These are different properties. Here the quotient map is the identity, so there is no freedom to select better lifts.
+
+Let \(E=F=\bigoplus_{n\ge1}^{\ell^2}(\C^n\oplus\C^n)\), \(E_0=0\), and use orthonormal vectors \(e_i,f_j\) in block \(n\). Write \(v=n^{-1/2}\sum_j f_j\). Within this block list the following pairs in the indicated order, and concatenate blocks in increasing order of \(n\):
+\[
+  (x_i,x_i^*)=(e_i+v,e_i)\quad(1\le i\le n),\]\[
+  (x_{n+j},x_{n+j}^*)=(f_j,f_j-n^{-1/2}\textstyle\sum_i e_i)
+       \quad(1\le j\le n).
+\]
+We identify Hilbert vectors with their coefficient functionals. Taking scalar products gives the Kronecker deltas within and across blocks. Each family spans every finite block and thus is total. Every displayed vector and every dual vector has norm \(1\) or \(\sqrt 2\), meeting the normalization convention of Terminology 10.2.1.2, p.~444. If unit norms for the primal vectors are required, divide the first \(n\) by \(\sqrt2\) and multiply their duals by \(\sqrt2\). Partial sums remain identical.
+
+Since the duals are total and \(E_0=0\), condition (10.4.2.17) forces each lift to equal the corresponding primal vector. Apply the partial-sum operator just after the first \(n\) vectors of block \(n\) to the unit vector \(z=n^{-1/2}\sum_i e_i\) of that block. Its image is \(z+\sqrt n\,v\), of norm \(\sqrt{1+n}\). The partial-sum norms are unbounded. A Schauder basis gives pointwise convergence of partial sums for every vector, and therefore uniformly bounded partial sums by the uniform boundedness principle. This disproves the asserted Schauder conclusion. Individual lifts and their two-sided norm estimates can still exist. Page~464 invokes the lemma for smooth lifts, so this example alone does not disprove the trace claimed there.
+
+
+\section{A counterexample that survives closing the convolution ideal}\label{sec:2}
+
+\textit{Lemma 9.3.2.5, pp.~425--426 .}\par
+The lemma asserts an absolute Schauder basis with the evaluations at zeros as coefficient functionals. The elementary Gaussian example on \S\ref{sec:6} could be evaded by closing the image. Here is a different obstruction that also rules out an \emph{ordinary} Schauder basis with these prescribed coefficients in the closed quotient. The entire divisor has boundedly many zeros per unit interval, much stronger sparsity than Lemma 9.3.2.4 requests.
+
+\begin{theorem}Even for a single character and a closed convolution ideal, a simple divisor of bounded local density need not admit a Schauder basis with point evaluations as its coefficient functionals.\end{theorem}\begin{proof}
 Choose \(G=\R_{>0}\), \(\chi=1\), \(I=[-1,1]\). Write \(E=\M(S_E(G))\), where \(\M f(z)=\int f(x)e^{zx}\,dx\) in log coordinates. Let \(\delta_n=e^{-n^3}\), \(v_n=in\), \(w_n=i(n+\delta_n)\), and set
 \[
  D(z)=e^{z^2}\prod_{n=1}^\infty
  \left(1+\frac{z^2}{n^2}\right)\left(1+\frac{z^2}{(n+\delta_n)^2}\right).
 \]
-The product converges normally on compact sets since \(\sum n^{-2}<\infty\). The only zeros of \(D\) are the simple points \(\pm v_n,\pm w_n\); \(0<\delta_n<1\) prevents overlap. A unit interval meets boundedly many such points, and every zero is on \(\Re z=0\). At \(r=|z|\), the product before the Gaussian is bounded by \(\prod(1+r^2/n^2)^2=(\sinh(\pi r)/(\pi r))^2\). Thus \(D\) and, by Cauchy's formula, its derivatives decay rapidly on every bounded vertical strip. Inverse contour shifting (audit p.~5) gives \(D\in E\).
+The product converges normally on compact sets since \(\sum n^{-2}<\infty\). The only zeros of \(D\) are the simple points \(\pm v_n,\pm w_n\); \(0<\delta_n<1\) prevents overlap. A unit interval meets boundedly many such points, and every zero is on \(\Re z=0\). At \(r=|z|\), the product before the Gaussian is bounded by \(\prod(1+r^2/n^2)^2=(\sinh(\pi r)/(\pi r))^2\). Thus \(D\) and, by Cauchy's formula, its derivatives decay rapidly on every bounded vertical strip. Inverse contour shifting (\S\ref{sec:5}) gives \(D\in E\).
 
 Let \(J=\overline{D E}\). Multiplication here corresponds to convolution on \(G\). For every \(G_0\in J\), evaluation continuity gives \(G_0(v_n)=G_0(w_n)=0\). On \(E/J\) define
 \[
@@ -63,8 +150,12 @@ Each node can actually be interpolated individually: \(D(z)/((z-v_n)D'(v_n))\) b
 \]
 Terms of a convergent series in a topological vector space must tend to zero. These terms are unbounded in one continuous seminorm, under \emph{every} enumeration. Rescaling each basis vector and its functional inversely leaves each term unchanged. This contradiction also survives restriction to one character, passage to a Hausdorff quotient, and imposition of the adjacent zero-count bound. Grouping nearby zeros into blocks or using divided differences as coordinates would change the proposed basis. This test concerns the general lemma; it makes no assertion that Hecke zeros have these prescribed gaps.
 
-\pagen{An exact test of the main trace formula}
-\loc{Theorem 12.5.1.1, pp.~519--520; Remark 9.2.0.1, p.~403; (A.3.2.1), p.~560; (B.4.4.16), p.~623}
+\end{proof}
+
+\section{An exact test of the main trace formula}\label{sec:3}
+
+\textit{Theorem 12.5.1.1, pp.~519--520; Remark 9.2.0.1, p.~403; (A.3.2.1), p.~560; (B.4.4.16), p.~623.}\par
+\begin{theorem}Over \(\Q(\sqrt5)\), the printed full-window formula gives distinct geometric and spectral values on a single smooth radial test.\end{theorem}\begin{proof}
 Write \(V=\bar\mu_1(C_F^1)\) for the volume of the norm-one idèle class group. In norm coordinates the paper's measure on \(C_F\) gives a radial function \(h(t)\) the Mellin transform \(V\int_0^\infty h(t)t^z\,dt/t\). Remark 9.2.0.1 explicitly distinguishes this measure from the canonical one, \(V^{-1}\bar\mu\). Appendix B uses the canonical factor at each global pole and zero in the explicit formula. Equation (12.5.1.3) defines its transform using \(\bar\mu\) without the division. The local coefficients agree for totally real fields. Radial tests select just the Dedekind zeta component by orthogonality on \(C_F^1\).
 
 Take \(F=\Q(\sqrt5)\), \(I=[-1,1]\). This is a full window since the strip is centered at \(1/2\); the introduction allows every positive width (pp.~27, 53). The discriminant is \(5\), there are two real places, and the Minkowski bound \(\sqrt5/2<2\) gives class number one. A fundamental unit is \(\epsilon=(1+\sqrt5)/2\). For \(1<u<\epsilon\) a unit of norm \(-1\) would give an integral trace strictly between 0 and 1, and a unit of norm \(+1\) a trace strictly between 2 and 3. Hence (A.3.2.1) gives
@@ -83,6 +174,7 @@ The support is compact since the norm is proper, and \(\phi\) vanishes near \(C_
 \]
 The geometric sum is exactly \(1\). The classical explicit formula gives exactly \(V\) for the \emph{unnormalized} full spectral expression printed on p.~519. No zeta zero has been approximated and no simplicity assumption enters.
 
+\end{proof}
 \subsection*{Why shrinking the strip cannot hide this factor}
 Take any fixed positive width. In \(x=\log t\) use a translated real bump \(f(x-u)\) with \(B(z)=\int f(x)e^{zx}dx\) and \(B(1/2)>0\). For all large \(u\) it is an allowed test. If the printed and classical formulas both held, subtraction would give
 \[
@@ -91,9 +183,11 @@ Take any fixed positive width. In \(x=\log t\) use a translated real bump \(f(x-
 \]
 where \(\lambda=\rho-1/2\) and \(m_\lambda\) is the multiplicity. Divide by \(e^{u/2}\). Each zero term tends to zero since \(\Re\rho<1\) by classical nonvanishing on the 1-line. The coefficients are absolutely summable by rapid vertical decay and the classical zero count for the fixed field. Dominated convergence gives \((V-1)B(1/2)=0\), a contradiction. This strengthens the normalization diagnosis to each positive width. Normalizing every global Mellin integral removes this obstruction.
 
-\pagen{Three fixed tests at every positive window width}
-\loc{A compatibility test for the universal quantifiers of Theorem 12.5.1.1, pp.~519--520}
-There is also a finite consistency check that uses neither the classical explicit formula nor limiting test functions. Keep the same \(h\) from audit p.~3, with the geometric contribution of each real place exactly \(1/2\). Put \(K=\Q(\sqrt5)\) and let \(\chi_5\) be the primitive quadratic character of conductor 5, viewed as a unitary idèle class character of \(\Q\) trivial on the positive norm section. Fix \emph{any} positive window width \(\alpha\). Consider the three smooth compact tests
+
+\section{Three fixed tests at every positive window width}\label{sec:4}
+
+\textit{A compatibility test for the universal quantifiers of Theorem 12.5.1.1, pp.~519--520.}\par
+There is also a finite consistency check that uses neither the classical explicit formula nor limiting test functions. Keep the same \(h\) from \S\ref{sec:3}, with the geometric contribution of each real place exactly \(1/2\). Put \(K=\Q(\sqrt5)\) and let \(\chi_5\) be the primitive quadratic character of conductor 5, viewed as a unitary idèle class character of \(\Q\) trivial on the positive norm section. Fix \emph{any} positive window width \(\alpha\). Consider the three smooth compact tests
 \[
  (\Q,h\circ|\cdot|),\qquad
  (\Q,\overline{\chi_5}\,(h\circ|\cdot|)),\qquad
@@ -109,14 +203,16 @@ for the \emph{same open window}, with exact addition even for coincident zeros.
 
 Here is the arithmetic behind that assertion. For \(p\ne5\), if \(p\) splits in \(K\) the product has local factor \((1-p^{-s})^{-2}\). If \(p\) is inert it has factor \((1-p^{-2s})^{-1}\). For \(p=5\) the ramified quadratic character contributes no Euler factor, giving \((1-5^{-s})^{-1}\) as required. The two real gamma factors agree because the quadratic character is even and \(K\) is totally real. The conductor and discriminant completions agree up to nonvanishing factors, irrelevant to the divisor. The two poles come from the trivial rational character; the quadratic completed function is nonzero at 0 and 1 by the usual nonvanishing at 1 and the functional equation. This proves the asserted divisor addition without information about zeros in the critical strip.
 
-Now \(\bar\mu_1(C_\Q^1)=1\) but \(\bar\mu_1(C_K^1)=V\ne1\) as computed on audit p.~3. Were all three printed formulas true they would give
+Now \(\bar\mu_1(C_\Q^1)=1\) but \(\bar\mu_1(C_K^1)=V\ne1\) as computed on \S\ref{sec:3}. Were all three printed formulas true they would give
 \[
        S_1=\tfrac12,\qquad S_5=\tfrac12,\qquad V S_K=1 .
 \]
 They imply \(1=V\), a contradiction. The tests are fixed independently of \(\alpha\); no asymptotic or separation of zeta zeros enters. In a narrow window this three-test argument by itself locates failure in \emph{at least one} of the three identities. Page 3 independently locates failure in the field \(K\) for each width using translates, and gives the exact failing single test in a full window. Dividing each field's global Mellin terms by its own volume restores compatibility under factorization. The underlying volume error already appears in public objections; this test isolates it using quadratic factorization even when the full classical formula is not invoked.
 
-\pagen{The zero-count assumption fails even in a single strip}
-\loc{Lemma 9.3.2.4, p.~425; application to Lemma 9.3.2.5, p.~426}
+
+\section{The zero-count assumption fails even in a single strip}\label{sec:5}
+
+\textit{Lemma 9.3.2.4, p.~425; application to Lemma 9.3.2.5, p.~426.}\par
 The lemma quantifies over all \(\varphi\in S_E(G)\) and asserts \(O(\log |T|)\) zeros per height-one box in each fixed vertical strip. Set \(G=\R_{>0}\), \(\chi=1\), and \(x=\log t\). The Mellin transform becomes the bilateral Laplace transform \(\M f(z)=\int_\R f(x)e^{zx}\,dx\). Here \(S_E\) consists of functions whose products with \(e^{a x}\) are Schwartz for every real \(a\).
 
 \textbf{Elementary example.} Take
@@ -145,8 +241,10 @@ For completeness, invert \(H_*(iy)\) by Fourier inversion. One may shift the inv
 \]
 Arithmetic \(L\)-functions have stronger zero counts from other theorems. Substituting one of those estimates in a particular application would still leave the independent projection and interpolation problems on the following pages.
 
-\pagen{Two distinct failures at page 426}
-\loc{Lemma 9.3.2.5 and Theorem 9.3.2.6; proof of Theorem 10.2.2.1 on p.~446}
+
+\section{Two distinct failures at page 426}\label{sec:6}
+
+\textit{Lemma 9.3.2.5 and Theorem 9.3.2.6; proof of Theorem 10.2.2.1 on p.~446.}\par
 \subsection*{A single simple zero does not describe the algebraic quotient}
 The lemma forms \(S_E/(\varphi*S_E)\) and asserts that the zero evaluations and their prescribed derivatives are the coefficient functionals of a Schauder basis. Use \(G=\R_{>0}\), \(I=[-1,1]\), and the trivial character. Take log-Gaussian derivatives \(\varphi,f\) with transforms
 \[
@@ -154,15 +252,17 @@ The lemma forms \(S_E/(\varphi*S_E)\) and asserts that the zero evaluations and 
 \]
 The only zero is simple and lies at 0. The proposed sole functional vanishes on \(f\). Nevertheless \(f\notin \varphi*S_E\), since a convolution preimage would have transform \(e^{-z^2}\), unbounded on \(i\R\); the Fourier transform of an \(L^1\) test is bounded there. The evaluation therefore fails to separate points in the displayed quotient.
 
-One can locate the defect exactly. Set \(H_n(z)=e^{z^2}\sum_{k=0}^n(-2z^2)^k/k!\), itself the transform of a finite linear combination of log-Gaussian derivatives. Then \(z e^{2z^2}H_n(z)\to z e^{z^2}\) in the vertical Schwartz topology. On \(|\Re z|\le A\), the approximants are bounded by \(|z|e^{5A^2-(\Im z)^2}\); on compacts use Taylor convergence, and for derivatives use Cauchy's formula on wider strips. Inverse contour shifting as on audit p.~5 proves convergence in \(S_E\). The image is nonclosed. Passing to its closure would kill this particular nonzero coset. The displayed lemma writes the image; a theorem of spectral synthesis for a closed ideal would need a precise replacement statement and proof.
+One can locate the defect exactly. Set \(H_n(z)=e^{z^2}\sum_{k=0}^n(-2z^2)^k/k!\), itself the transform of a finite linear combination of log-Gaussian derivatives. Then \(z e^{2z^2}H_n(z)\to z e^{z^2}\) in the vertical Schwartz topology. On \(|\Re z|\le A\), the approximants are bounded by \(|z|e^{5A^2-(\Im z)^2}\); on compacts use Taylor convergence, and for derivatives use Cauchy's formula on wider strips. Inverse contour shifting as on \S\ref{sec:5} proves convergence in \(S_E\). The image is nonclosed. Passing to its closure would kill this particular nonzero coset. The displayed lemma writes the image; a theorem of spectral synthesis for a closed ideal would need a precise replacement statement and proof.
 
 \subsection*{The claimed approximate identity is a fixed proper projection}
 Theorem 9.3.2.6 defines \(V_T\) by intersecting the kernels of Mellin jets at zeros of ordinate \(|\Im\rho|\le T\). Thus \(V_{T'}\subseteq V_T\) for \(T'>T\), reversing the inclusion in the proof. Choose \(\M\varphi(z)=ze^{z^2}\). For every \(T>0\), \(V_T=\ker\delta_0\). It is a proper closed hyperplane of \(W_I^s\), say for \(s=2\): \(\delta_0(f)=\int f(x)\,dx\) is continuous by Cauchy--Schwarz with reciprocal weight \(e^{-2|x|}(1+x^2)^{-1}\), and a Gaussian has nonzero integral. All the \(P_T\) are the same projection onto this hyperplane. For a Gaussian \(f\) with \(\delta_0(f)=1\), one even has \(\|(I-P_T)f\|\ge1/\|\delta_0\|\) at every height.
 
 Reversing a sign in the proof cannot change that calculation. In general the projections decrease to the projection onto the common nullspace. Their complements increase to the projection onto the closed span of the representing functionals. To obtain the identity on the intended quotient one must identify that span with its full dual. The proof of Theorem 10.2.2.1 explicitly invokes the false approximate-identity statement. This shows a gap in its proof; it does not preclude the existence of some biorthogonal system for actual zeta zeros.
 
-\pagen{Two spectral estimates tested on actual zeta zeros}
-\loc{Theorems 10.2.2.1, 10.3.2.1 and 10.4.2.8, pp.~446, 454, 463--464; use on p.~520}
+
+\section{Two spectral estimates tested on actual zeta zeros}\label{sec:7}
+
+\textit{Theorems 10.2.2.1, 10.3.2.1 and 10.4.2.8, pp.~446, 454, 463--464; use on p.~520.}\par
 On the critical line for the trivial character of \(C_\Q\), the coefficient functional at \(\rho=1/2+i\gamma\) is represented by \(\eta_\gamma(x)=e^{i\gamma x}\), \(x=\log |g|\), under (10.2.2.4). For \(I=[-\alpha,\alpha]\) of positive width and \(s=2\), the squared dual norm is the \(L^2\) norm squared with density \(w(x)=e^{-2\alpha|x|}(1+x^2)^{-1}\). With the chosen normalization over \(\Q\),
 \[
  \|\eta_\gamma-\eta_{\gamma'}\|\le K|\gamma-\gamma'|,
@@ -179,8 +279,10 @@ Conrey's unconditional theorem on simple critical-line zeros and the Riemann--vo
 \subsection*{Which boundary jets are actually continuous?}
 At a boundary point \(b=\alpha>0\) the squared dual norm of jet \(m\) on the positive half-axis behaves as \(\int_1^\infty x^{2m-s}\,dx\). Convergence requires \(2m+1<s\), strictly. In (10.2.2.5) take \(s=1,\ \alpha=1/4,\ a=1/4,\ b=1/4\). Any simple critical-line zeta zero qualifies. The printed floor formula includes \(m=0\); its norm diverges logarithmically. Hence a membership assertion of Theorem 10.2.2.1 itself fails at an allowed parameter. The analogous count for \(s>1\) is \(\min\{N,\lceil(s-1)/2\rceil\}\). Choosing widths whose boundaries avoid the zeros bypasses this endpoint issue when taking a sequence of widths to zero. It does not repair the interior close-zero estimate.
 
-\pagen{Summing along idèle orbits and cutting into prime shells}
-\loc{Corollary 11.1.1.4, pp.~477--478; Theorem 11.1.2.1, pp.~480--483; Theorem 11.3.2.1, pp.~495--496}
+
+\section{Summing along idèle orbits and cutting into prime shells}\label{sec:8}
+
+\textit{Corollary 11.1.1.4, pp.~477--478; Theorem 11.1.2.1, pp.~480--483; Theorem 11.3.2.1, pp.~495--496.}\par
 \subsection*{An admissible sequence with escaping mass}
 Let \(F=\Q\), \(f(x)=b(x_\infty)\id_{\widehat{\Z}}(x_f)\), with \(0\le b\in C_c^\infty((1/2,3/2))\) and \(b(1)=1\). Define \(f_n(x)=f(x/n)\) using the principal idèle \(n\). Each \(f_n\) is Schwartz--Bruhat. At each fixed idèle the real coordinate divided by \(n\) tends to zero, so \(f_n\to0\). For each idèle \(g\), reindexing \(\xi\mapsto\xi/n\) gives
 \[
@@ -201,8 +303,10 @@ In (11.3.2.2), integrate in \(g\in E_\Q^1\) with the indicated angular Haar meas
 
 Independently, the sets \(A_j\) with indicators \(\alpha_j\) decrease. In the second variable the factor in (11.3.2.3) is \((\alpha_{k+1}-\alpha_k)\alpha_j=0\) for \(j\ge k+1\). The proposed limit is zero. For \(\Q,\ S=\{\infty\},\ p=2\), an allowed radial bump supported near norm 2 with value one there has a strictly positive orbital right side in (11.3.2.1) from \(\pi_2^{-1}\). The advertised general computation fails. On p.~520 only sufficiently large primes are used, for which that right side is zero; this example alone does not disprove those special vanishings.
 
-\pagen{What the geometric comparison would have to prove}
-\loc{Equations (11.3.1.4), p.~494, and (12.5.1.4), p.~520; Theorem 12.4.1.1, pp.~514--519}
+
+\section{What the geometric comparison would have to prove}\label{sec:9}
+
+\textit{Equations (11.3.1.4), p.~494, and (12.5.1.4), p.~520; Theorem 12.4.1.1, pp.~514--519.}\par
 \subsection*{The proposed multiplier fails its codomain test}
 Set \(F=\Q,\ S=\{\infty\}\). On p.~516, Step II lists \(P_{\rho,\lambda}:\mathcal S(\R)\to S_{00}(\R)\) as multiplication by a smoothing of \(\id_{\{|x|\le\lambda\}}\). By pp.~243, 259, \(S_{00}(\R)=\bigcap_{m\ge0}\ker\delta_0^{(m)}\). The upper cutoff described in the calculation is one near zero. A Gaussian \(f(x)=e^{-x^2}\) therefore gives \(P_{\rho,\lambda}f(0)=1\), contrary to the target. This checks the claimed map on its stated entire source. It does not say multiplication by that cutoff fails on the smaller subspace of functions already flat at zero.
 
@@ -212,10 +316,12 @@ Definition 9.3.3.1 on p.~427 instead uses a cutoff supported in a two-sided annu
 On p.~520 the proof identifies \(\int_{C_F} k_S(x,x)\,d\bar\mu(x)\), the surviving part of a global geometric kernel built using a strip \(I\), with the local orbital terms \emph{minus two global pole terms}. Theorem 12.4.1.1 gives an asymptotic for a cutoff Paley--Wiener kernel integrated on \(J_{F,S}\), divided by \(\bar\mu_{S,1}(J_{F,S}^1)\). Its correction is \(\phi(1)\log(\lambda\lambda')\), and no spectral strip occurs in it. With the tests in question \(\phi(1)=0\). A proof still needs to identify the local operator, subtract the two polar contributions and justify passage to the smoothed global diagonal. Defining successive kernel differences in (11.3.1.4) does not establish those facts. Section 12.3 on p.~514 consists of its heading and an editorial footnote. This is a missing implication even if all required large-prime traces vanish separately.
 
 \subsection*{Why the extension by continuity on page 30 also needs work}
-On p.~495 the orbital theorem assumes support strictly above norm one. Section 1.4.6 describes extension to the other side and then by continuity to \(\phi(C_F^1)=0\). In the manuscript's test-function topology the functions vanishing on a neighborhood of norm one are not dense in all functions vanishing at norm one. Already in the radial component write \(x=\log t\), take an even bump \(\beta=1\) near zero, and let \(f(x)=x^2\beta(x)\). Evaluation \(f\mapsto f''(0)\) is continuous on \(C_c^\infty(\R)\). It vanishes on the former subspace and equals 2 on this allowed even test. Inversion symmetry does not eliminate this witness. A separate argument could show the relevant distribution has order zero there, or prove continuity in a suitable weaker topology. The off-unit tests alone suffice for the conditional implication on audit p.~12, so this objection addresses the full test class claimed in the theorem.
+On p.~495 the orbital theorem assumes support strictly above norm one. Section 1.4.6 describes extension to the other side and then by continuity to \(\phi(C_F^1)=0\). In the manuscript's test-function topology the functions vanishing on a neighborhood of norm one are not dense in all functions vanishing at norm one. Already in the radial component write \(x=\log t\), take an even bump \(\beta=1\) near zero, and let \(f(x)=x^2\beta(x)\). Evaluation \(f\mapsto f''(0)\) is continuous on \(C_c^\infty(\R)\). It vanishes on the former subspace and equals 2 on this allowed even test. Inversion symmetry does not eliminate this witness. A separate argument could show the relevant distribution has order zero there, or prove continuity in a suitable weaker topology. The off-unit tests alone suffice for the conditional implication on \S\ref{sec:12}, so this objection addresses the full test class claimed in the theorem.
 
-\pagen{The archimedean limit and what can be repaired}
-\loc{Sections 1.4.2--1.4.5, pp.~28--30, and 1.8.4.2--1.8.5.1, pp.~53--55}
+
+\section{The archimedean limit and what can be repaired}\label{sec:10}
+
+\textit{Sections 1.4.2--1.4.5, pp.~28--30, and 1.8.4.2--1.8.5.1, pp.~53--55.}\par
 Take \(F=\Q\), the trivial character, a strip with \(\sup I<3/2\), and \(z=3/2\). Select any sequence of the stated nonnegative mollified, compactly supported tests \(\phi_n\) with support in \(t>1\) approaching \(t^{-z}\) pointwise there. For each \(n\) the support stays away from 1, so the principal value is the ordinary integral. The positive real branch yields
 \[
   \liminf_n\frac12\int_1^2\frac{t^{1/2}\phi_n(t)}{t-1}\frac{dt}{t}
@@ -237,12 +343,14 @@ For the limiting radial tests at \(z,z_0\) with positive real parts, subtract th
  (t^{-z}-t^{-z_0})t^{-1/2}
  \left(\frac1{t-1}+\frac1{t+1}\right)dt .
 \]
-Near \(1\), the difference is \(O_K(t-1)\), uniformly for \(z\) in compact sets. At infinity the integrand is bounded by an integrable power on any such compact subset of \(\Re z>0\). This produces a holomorphic real-place difference. It does not prove convergence of every term of the original mollifier family, nor an equality between that renormalized difference and the spectral side. An independent, conditional route using entirely smooth tests is given on audit p.~12.
+Near \(1\), the difference is \(O_K(t-1)\), uniformly for \(z\) in compact sets. At infinity the integrand is bounded by an integrable power on any such compact subset of \(\Re z>0\). This produces a holomorphic real-place difference. It does not prove convergence of every term of the original mollifier family, nor an equality between that renormalized difference and the spectral side. An independent, conditional route using entirely smooth tests is given on \S\ref{sec:12}.
 
 \textbf{Consequence.} The singular limit used to rule out off-line zeros fails in the written proof. The failure does not by itself invalidate the logical implication from a correctly normalized restricted trace identity to GRH. That distinction is important when assessing how much of the argument needs replacement.
 
-\pagen{A contradiction on Chapter 13's own moment-null tests}
-\loc{Theorem 13.3.1.1, (13.3.1.1--5), p.~522; classical comparison (B.4.4.16), p.~623}
+
+\section{A contradiction on Chapter 13's own moment-null tests}\label{sec:11}
+
+\textit{Theorem 13.3.1.1, (13.3.1.1--5), p.~522; classical comparison (B.4.4.16), p.~623.}\par
 Over \(\Q\), both global volume and finite unit volumes are one. The real-place coefficient on p.~522 is \(1\), whereas pp.~519 and 623 give \(1/2\) for the same real multiplicative measure. Page 522 also restricts the spectrum to on-line zeros and counts each once. One cannot diagnose the factor in isolation merely by cancelling the two spectral sums: the missing zeros and excess multiplicities are unknown. The following test handles that possible compensation.
 
 Let \(0\le b_0\in C_c^\infty((1,2))\) be nonzero in the log variable, \(b=b_0'\), and \(B(z)=\int b(x)e^{zx}dx\). For \(u\ge0\) set \(\phi_u(g)=b(\log|g|-u)\). The sole required moment for the trivial compact type vanishes since \(\int b=0\); all others vanish by character orthogonality. The twist along the norm section cancels at \(s=-ix_0(\chi)\) in (13.3.1.2). Thus these tests satisfy \emph{every} condition on p.~522. They vanish near the singular point.
@@ -260,10 +368,12 @@ The integrand is used only for \(x>1\). Its kernel is the sum of the positive an
 \]
 The left series converges normally away from its locally finite poles by vertical Schwartz decay and the ordinary zeta zero count. On the right, \(B(-1/2-2k)\) decays exponentially since the test has support in \(x>1\). The left is holomorphic at \(s=-1/2\) since \(\rho=0\) is not a nontrivial zero. The right has residue \(B(-1/2)=\frac12\int b_0(x)e^{-x/2}dx>0\). This contradicts uniqueness of meromorphic continuation. Some member of the displayed admissible family must violate p.~522. This is a contradiction under the printed measures, independent of RH and of zeta simplicity. Restoring \(1/2\) removes this unmatched pole.
 
-\textbf{Codimension and multiplicity.} On the full test space define \(J\phi(v)=\int_0^\infty\phi(\tau(t)v)\,dt/t\). For \(\Q\), (13.3.1.2) says every Fourier coefficient on \(C_\Q^1\simeq\widehat{\Z}^\times\) of \(J\phi\) vanishes. Taking \(h(t)c(v)\) with \(\int h\,dt/t=1\) realizes every locally constant \(c\); there are infinitely many independent finite characters. Thus the kernel has infinite codimension. Codimension one is correct in a single compact isotype. After correcting the coefficient, the claimed radial equality would still imply RH and simplicity by the separation proof on the next page using \(b=b_0'\) (choose a modulated \(b_0\)); \(\lambda=0\) is absent since \(\zeta(1/2)\ne0\) by the alternating eta series. Theorem 13.3.1.2 has no statement or proof in this release.
+\textbf{Codimension and multiplicity.} On the full test space define \[J\phi(v)=\int_0^\infty\phi(\tau(t)v)\,dt/t.\] For \(\Q\), (13.3.1.2) says every Fourier coefficient on \(C_\Q^1\simeq\widehat{\Z}^\times\) of \(J\phi\) vanishes. Taking \(h(t)c(v)\) with \(\int h\,dt/t=1\) realizes every locally constant \(c\); there are infinitely many independent finite characters. Thus the kernel has infinite codimension. Codimension one is correct in a single compact isotype. After correcting the coefficient, the claimed radial equality would still imply RH and simplicity by the separation proof in \S\ref{sec:12} using \(b=b_0'\) (choose a modulated \(b_0\)); \(\lambda=0\) is absent since \(\zeta(1/2)\ne0\) by the alternating eta series. Theorem 13.3.1.2 has no statement or proof in this release.
 
-\pagen{What the normalized window identity would prove}
-\loc{Comparison of Theorem 12.5.1.1 with the classical explicit formula; the significance of p.~520}
+
+\section{What the normalized window identity would prove}\label{sec:12}
+
+\textit{Comparison of Theorem 12.5.1.1 with the classical explicit formula; the significance of p.~520.}\par
 Fix a unitary Hecke character \(\chi\) of a number field \(F\), and use canonical global measure. Test with \(\overline{\chi(g)}f(\log|g|)\) for \(f\in C_c^\infty((0,\infty))\). Compact-character orthogonality leaves precisely the component parametrized by \(c=\chi|\cdot|^\rho\); the norm twist cancels in the product. Subtract the classical explicit formula, with multiplicities, from a hypothetical correctly normalized window formula with identical local and pole terms. If \(\lambda=\rho-1/2\) runs over the distinct omitted zeros in this component, one obtains
 \[
        \sum_{\lambda}m_\lambda\int_\R f(x)e^{\lambda x}\,dx=0
@@ -278,8 +388,10 @@ Here the common factor \(e^{-sU}\) has been cancelled. Repeated integration by p
 \subsection*{Precisely what has and has not been disproved}
 The scalar and functional-analytic counterexamples disprove specified printed statements. The meromorphic argument above shows why one cannot use such examples to claim a counterexample to the correctly normalized thin-window identity: for all widths, in the zeta component alone, that would resolve RH in the opposite direction. The spectral estimates fail in the proof given; one has not ruled out nuclearity by another method. The local cutoff and projection arguments fail to give the announced global identification; one has not proved the impossibility of a different regularization. The supplied text establishes neither the normalized trace identity for arbitrarily narrow strips nor the claimed conclusion about all zeros.
 
-\pagen{Public comparison and reproducibility}
-\loc{Sources consulted on 21 November 2026; scope of attribution}
+
+\section{Public comparison and reproducibility}\label{sec:13}
+
+\textit{Sources consulted on 21 November 2026; scope of attribution.}\par
 The primary artifact is the 940-page draft dated 20 November 2026. Its public copy and the attachment have the same SHA-256 digest, split here for readability:
 \[
 \texttt{e039d3f6cf0a4b14f03c7edb85097752}\,
@@ -287,13 +399,20 @@ The primary artifact is the 940-page draft dated 20 November 2026. Its public co
 \]
 A comment hosted on a mathematician's site is attributed here to its author. A report that a formalization exists is not independent certification of the manuscript. The findings in this audit were checked mathematically; the companion script performs only the exact arithmetic and Boolean checks listed below. \href{https://math216.wordpress.com/wp-content/uploads/2026/11/the-music-of-the-primes.pdf}{Manuscript} \enspace|\enspace \href{https://math216.wordpress.com/2026/11/20/hurried-announcement-alessandro-masullo-grh/}{Vakil's release and update}.
 
-\textbf{Published overlap in Chapter 9.} The elementary \(e^{z^2}\sin z^2\) example, the Gaussian algebraic-ideal objection, and the one-zero counterexample to the projections are all present in a public statement review. The exponentially close pairs on audit p.~2 probe a different proposed repair, a closed ideal with a sparse divisor. We located no public application of this particular example to Lemma 9.3.2.5 in the sources examined. \href{https://github.com/mccorvie/riemann-masullo/pull/2437\#issuecomment-7057600557}{Section 9.3 statement review}.
+\textbf{Published overlap in Chapter 9.} The elementary \(e^{z^2}\sin z^2\) example, the Gaussian algebraic-ideal objection, and the one-zero counterexample to the projections are all present in a public statement review. The exponentially close pairs on \S\ref{sec:2} probe a different proposed repair, a closed ideal with a sparse divisor. We located no public application of this particular example to Lemma 9.3.2.5 in the sources examined. \href{https://github.com/mccorvie/riemann-masullo/pull/2437\#issuecomment-7057600557}{Section 9.3 statement review}.
 
 \textbf{Spectral estimates and geometric trace.} The close-zeta-zero obstruction to the biorthogonal bound on pp.~451 and 463 was explicitly posted by twinheterodox. The orbital dilation example, the zero-mass indentation, the shell mask, the local-cutoff issue, the global-volume mismatch, the boundary-jet condition, and the missing p.~520 identification are documented in the public audit drawing on the Prove2Me discussion, including work attributed there to Yi. Its global-volume example uses \(\Q(i)\); its next comment gives the translated-bump pole-separation argument for ordinary zeta. \href{https://terrytao.wordpress.com/2026/11/20/unforced-euler-singularity-unforced-navier-stokes-singularity-and-the-generalized-riemann-hypothesis/\#comment-699655}{twinheterodox's calculation} \enspace|\enspace \prior \enspace|\enspace \href{https://github.com/mccorvie/riemann-masullo/issues/2469\#issuecomment-7057757877}{window comparison}.
 
-\textbf{Endgame and Chapter 13.} The positive real-branch divergence and the Euler-sign problem were reported before this audit. The doubled real-place weight and boundary pole on moment-null probes on p.~522 also have a public precedent. Our p.~11 comparison goes directly to the classical all-zero formula and permits arbitrary unknown off-line zeros and multiplicities. The unfinished Chapter 13 has been widely identified. \href{https://github.com/mccorvie/riemann-masullo/issues/3\#issuecomment-7048799269}{endgame calculation} \enspace|\enspace \href{https://github.com/monocap-tech/weil-lab/blob/2f94e280ac7bf3a567f7d4ca54898551d867a4f6/docs/PI023_CANONICAL_HAAR_AND_BOUNDARY_POLE_NO_GO.md}{PI023 boundary-pole analysis} \enspace|\enspace \href{https://rlankenau.github.io/rh/masullo/}{reader's atlas}.
+\textbf{Endgame and Chapter 13.} The positive real-branch divergence and the Euler-sign problem were reported before this audit. The doubled real-place weight and boundary pole on moment-null probes on p.~522 also have a public precedent. \S\ref{sec:11} comparison goes directly to the classical all-zero formula and permits arbitrary unknown off-line zeros and multiplicities. The unfinished Chapter 13 has been widely identified. \href{https://github.com/mccorvie/riemann-masullo/issues/3\#issuecomment-7048799269}{endgame calculation} \enspace|\enspace \href{https://github.com/monocap-tech/weil-lab/blob/2f94e280ac7bf3a567f7d4ca54898551d867a4f6/docs/PI023_CANONICAL_HAAR_AND_BOUNDARY_POLE_NO_GO.md}{PI023 boundary-pole analysis} \enspace|\enspace \href{https://rlankenau.github.io/rh/masullo/}{reader's atlas}.
 
-\textbf{Possible contributions of this audit.} The two results for which we specifically checked prior objections are the single-character, closed-ideal, sparse-pair construction on p.~2 and the same three fixed probes for every window on p.~4. Both arguments were independently reproduced. We found no exact match for either construction in the inspected discussions or in targeted web and repository searches. Related interpolation and normalization mechanisms are established, and some public discussion threads were only partially accessible. No priority claim for either construction follows from this search.
+\textbf{Possible contributions of this audit.} The two results for which we specifically checked prior objections are the single-character, closed-ideal, sparse-pair construction in \S\ref{sec:2} and the same three fixed probes for every window in \S\ref{sec:4}. Both arguments were independently reproduced. We found no exact match for either construction in the inspected discussions or in targeted web and repository searches. Related interpolation and normalization mechanisms are established, and some public discussion threads were only partially accessible. No priority claim for either construction follows from this search.
 
-\textbf{Arithmetic reproduction.} In the \texttt{checks} directory run \texttt{python3 masullo-audit-checks.py}. It uses exact fractions, integer square roots and a proved geometric remainder for the log series to certify \(0.430408940964<V<0.430408940965\). It verifies three exact zero counts for the product on p.~5 and exhausts all membership triples for the nested-shell identity. The infinite-dimensional and meromorphic arguments are proved in the text.
+\textbf{Arithmetic reproduction.} In the \texttt{checks} directory run \texttt{python3 masullo-audit-checks.py}. It uses exact fractions, integer square roots and a proved geometric remainder for the log series to certify the volume enclosure given in the text. It verifies three exact zero counts for the product in \S\ref{sec:5} and exhausts all membership triples for the nested-shell identity. The infinite-dimensional and meromorphic arguments are proved in the text.
+
+
+\begin{thebibliography}{9}
+\bibitem{connes} A. Connes, Trace formula in noncommutative geometry and the zeros of the Riemann zeta function, \emph{Selecta Math. (N.S.)} \textbf{5} (1999), 29--106. \href{https://arxiv.org/abs/math/9811068}{arXiv:math/9811068}.
+\bibitem{hardy} G. H. Hardy, Sur les zéros de la fonction \(\zeta(s)\) de Riemann, \emph{C. R. Acad. Sci. Paris} \textbf{158} (1914), 1012--1014.
+\bibitem{masullo} A. M. Masullo, \emph{The Music of the Primes}, manuscript, 20 November 2026, 940 pp. \href{https://math216.wordpress.com/wp-content/uploads/2026/11/the-music-of-the-primes.pdf}{Source PDF}.
+\end{thebibliography}
 \end{document}
