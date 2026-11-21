@@ -50,9 +50,10 @@ def check_quaternion_regular_character():
     print("Quaternion regular character contains its degree-two character twice.")
 
 
-def check_mellin_lower_bound():
-    # log(2)>1/2, e<3. The n=4k^2 term bounds the absolute Taylor
-    # coefficient below by (2k^2/9)^k/k!, hence by (2k/9)^k.
+def check_valuation_tail_coefficient_bound():
+    # Section 6 (lacunary valuation tail): using log(2)>1/2 and e<3, the n=4k^2
+    # term bounds the absolute Taylor coefficient below by (2k^2/9)^k/k!, and
+    # k! <= k^k turns this into (2k/9)^k. Only the last step is checked here.
     for k in range(1, 40):
         assert Fraction(2 * k * k, 9)**k / factorial(k) >= Fraction(2 * k, 9)**k
     print("Valuation-tail Taylor coefficient rational bound verified for k=1,...,39.")
@@ -62,4 +63,4 @@ if __name__ == "__main__":
     for root in (1, 2, 3, 4):
         block_checks(root)
     check_quaternion_regular_character()
-    check_mellin_lower_bound()
+    check_valuation_tail_coefficient_bound()
