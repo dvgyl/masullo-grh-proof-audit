@@ -1,5 +1,11 @@
 
-$ python3 checks/masullo-audit-checks.py
+$ python3 checks/check_appendices.py
+19 exact pole-pair checks and the split-prime check passed.
+
+$ python3 checks/check_foundations.py
+Verified exact pole sets, gamma orders, dilation jets and lacunary lower bounds.
+
+$ python3 checks/check_preprint.py
 Certified: 0.430408940964 < vol(C_F^1) < 0.430408940965 for F=Q(sqrt(5)).
 Canonical-product zeros in (100, 101]: 15
 Canonical-product zeros in (10000, 10001]: 150
@@ -8,13 +14,7 @@ Fixed bump: 256/4225 < D_0(0) < 256/1681 < 1/4.
 Block projection: squared norms n+1 for n = 1, 4, 9, 25, 81.
 Verified the shell-mask identity for every possible membership triple.
 
-$ python3 checks/masullo-next-appendix-checks.py
-19 exact pole-pair checks and the split-prime check passed.
-
-$ python3 checks/masullo-next-foundations-checks.py
-Verified exact pole sets, gamma orders, dilation jets and lacunary lower bounds.
-
-$ python3 checks/masullo-next-spectral-checks.py
+$ python3 checks/check_spectral.py
 n=1, squared halfway partial-sum norm on unit input = 2
 n=4, squared halfway partial-sum norm on unit input = 5
 n=9, squared halfway partial-sum norm on unit input = 10
@@ -22,17 +22,17 @@ n=16, squared halfway partial-sum norm on unit input = 17
 Quaternion regular character contains its degree-two character twice.
 Valuation-tail Taylor coefficient rational bound verified for k=1,...,39.
 
-$ python3 checks/masullo-next-synthesis-checks.py
+$ python3 checks/check_synthesis.py
 units=False, t=7/4, U(t)=0, U(t/2)=2, PV=-1
 units=True, t=7/2, U(t)=0, U(t/2)=-1, PV=1/2
 
-$ python3 checks/masullo-next-trace-checks.py
+$ python3 checks/check_trace.py
 Independent asinh-series certificate: 0.430408940964 < V < 0.430408940965.
 Kummer rank certificate: [-1, 1254, -2, -57] has 16 distinct subset classes.
 E_1254 is a sign-minus congruent-number twist (n mod 8 = 6).
 At the two primes over 5 the distinct phases are (-7 +/- 24i)/25.
 
-$ python3 checks/masullo-next-synthesis-checks.py --z3
+$ python3 checks/check_synthesis.py --z3
 units=False, t=7/4, U(t)=0, U(t/2)=2, PV=-1
 units=True, t=7/2, U(t)=0, U(t/2)=-1, PV=1/2
 Z3 verified the overlap residual, first-jet algebra, and Gaussian lower-bound inequality.

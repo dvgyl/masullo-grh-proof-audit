@@ -1,7 +1,7 @@
-"""Exact finite checks accompanying the spectral re-audit. Run with Python 3.
+"""Exact finite checks accompanying the spectral dossier. Run with Python 3.
 
 The general proofs, zero-counting inputs, and analytic trace-class arguments are
-in the accompanying report. Finite experiments alone cannot establish them.
+in dossiers/notes/spectral.md. Finite experiments alone cannot establish them.
 """
 from fractions import Fraction
 from math import factorial

@@ -1,4 +1,4 @@
-"""Build the verification dossiers from the six local Markdown sources."""
+"""Build the verification dossiers (PDF and HTML) from the six Markdown notes in notes/."""
 from pathlib import Path
 import re
 import subprocess
@@ -9,8 +9,8 @@ ROOT = Path(__file__).resolve().parent
 CHAPTERS = [
     ("foundations", "Finite-place tests and the second structure theorem"),
     ("synthesis", "The converse theorem, asymptotics and spectral jets"),
-    ("existing-spectral", "Mellin quotients and the spectral trace"),
-    ("existing-trace", "The geometric trace and the endgame"),
+    ("spectral", "Mellin quotients and the spectral trace"),
+    ("trace", "The geometric trace and the endgame"),
     ("appendices", "Contour shifts and auxiliary claims"),
     ("crosscheck", "Independent verification and public provenance"),
 ]
@@ -18,10 +18,10 @@ CHAPTERS = [
 
 def combine_notes():
     document = ['---\ntitle: "Verification dossiers"',
-                'subtitle: |\n  Companion to the second audit of The Music of the Primes  \n  *GPT 6.2 Astra prepared these mathematical verification notes.*',
+                'subtitle: |\n  Companion to the audit of The Music of the Primes  \n  *GPT 6.2 Astra prepared these mathematical verification notes. Claude Opus 5.5 checked and verified them.*',
                 'date: "21 November 2026"\n---\n']
     for slug, title in CHAPTERS:
-        path = ROOT / "notes" / f"masullo-next-{slug}.md"
+        path = ROOT / "notes" / f"{slug}.md"
         body = path.read_text().splitlines()[1:]
         document.extend(["# " + title, "", *body, ""])
     # Pandoc's MathML writer uses modern LaTeX font commands.

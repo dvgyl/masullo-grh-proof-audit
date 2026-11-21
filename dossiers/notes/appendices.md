@@ -1,6 +1,6 @@
 # Contour shifts, boundary Euler products, and auxiliary trace facts
 
-Technical note on the 20 November 2026 manuscript. External links below identify prior public objections. This pass also checked Chapters 3, 7, 12 and 14 where they use the appendix machinery. It is a dependency audit, not a line-by-line certification of 940 pages.
+Technical note on the 20 November 2026 manuscript. External links below identify prior public objections. This note also checked Chapters 3, 7, 12 and 14 where they use the appendix machinery. It is a dependency audit, not a line-by-line certification of 940 pages.
 
 ## Established errors
 

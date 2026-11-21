@@ -1,41 +1,60 @@
-# Spectral projections and normalization in a proposed trace formula for Hecke L-functions
+# Audit of Masullo's proposed proof of the Generalized Riemann Hypothesis
 
-[Second audit (PDF)](reports/second-audit/second-audit.pdf) · [Full verification dossiers (PDF)](reports/second-audit/verification-dossiers.pdf) · [Revised preprint (PDF)](reports/technical-audit.pdf)
+This repository checks *The Music of the Primes*, the 940-page manuscript by Alessandro Maria Masullo (dated 20 November 2026) that proposes a proof of the Generalized Riemann Hypothesis (GRH). It gives explicit counterexamples to theorems and proof steps that the argument depends on, together with exact-arithmetic checks that anyone can rerun.
 
-This audit checks Alessandro Maria Masullo’s proposed proof of the Generalized Riemann Hypothesis. On p. 448 a compact test over an explicit quaternion number field gives a trace-class operator whose printed trace exceeds its actual trace by at least one. An elementary Gaussian example also contradicts the asymptotic formula on pp. 317–318. The audit identifies where the argument for GRH breaks down. Both examples are consistent with GRH.
+**Conclusion.** The manuscript does not prove GRH as written. Several intermediate theorems are false, and the main trace identity (Theorem 12.5.1.1) fails with the Haar measure printed in the manuscript. None of this contradicts GRH itself. Every counterexample is consistent with GRH, and a correctly normalized version of the main identity at arbitrarily narrow widths would still imply GRH (preprint §13). The problem is in the proof, not in the conjecture.
 
-The second audit gives full derivations, repairs, and corrections to the attribution of earlier objections. The dossiers distinguish contradictions to theorem statements from failures in their proofs. [Report source](reports/second-audit/REPORT.md) · [Dossier sources](reports/second-audit/notes/) · [Downloadable MathML edition](reports/second-audit/verification-dossiers.html) · [Preprint LaTeX](reports/technical-audit.tex) · [Projection supplement](reports/projection-counterexample.pdf)
+## Documents
 
-## Results
+| Document | Contents |
+| --- | --- |
+| [Preprint](paper/preprint.pdf) ([LaTeX](paper/preprint.tex)) | The main paper, 16 pages. It covers the spectral projection, the false scalar trace, the sparse-pair basis obstruction, the normalization failure of the main identity and the remaining chapter-by-chapter findings. |
+| [Projection supplement](paper/projection-supplement.pdf) ([LaTeX](paper/projection-supplement.tex)) | 5 pages. One explicit test that breaks the spectral projection at every strip width, plus the endpoint jet and lifting-lemma examples. |
+| [Detailed report](report/report.pdf) ([Markdown](report/report.md)) | Longer derivations: the false trace value, Gaussian asymptotics, the finite-place natural boundary, results across Chapters 4–14 and the appendices, repairs, and attribution of earlier objections. |
+| [Verification dossiers](dossiers/verification-dossiers.pdf) ([HTML](dossiers/verification-dossiers.html), [sources](dossiers/notes/)) | Six technical notes with complete proofs, exact hypotheses, alternative arguments and records of the public sources searched. |
 
-| Manuscript reference | Result | Proof |
+Page and equation numbers refer to the 940-page manuscript dated 20 November 2026, [published here](https://math216.wordpress.com/wp-content/uploads/2026/11/the-music-of-the-primes.pdf). Its SHA-256 is `e039d3f6cf0a4b14f03c7edb85097752dd65c0a2fe543c76fe992be234f97bf5`.
+
+## Main results
+
+| Manuscript reference | Result | Where |
 | --- | --- | --- |
-| Thm. 6.3.2.1, pp. 304–307 | A test satisfying both moment conditions gives a strictly positive difference on the overlap where the proof requires equality. | Second audit §2.2 |
-| Thm. 7.1.2.3, pp. 317–318 | A rational Gaussian orbit sum tends to two where the claimed bound tends to zero. | Second audit §2.2 |
-| Thm. 10.4.3.5(3), pp. 472–473 | The output of convolution after spectral projection can lie outside the range of every proposed approximant. | Supplement pp. 1–3 |
-| Thms. 11.2.1.2(2) and 11.2.1.4(2), pp. 488–489 | The missing right-hand geometric projection changes the strong limit on one vector. The scalar traces require a separate argument. | Supplement pp. 2–3 |
-| Thm. 10.3.1.1(2), p. 448 | Over a specified quaternion field, the printed scalar trace exceeds the trace of a trace-class test operator by at least one. | Preprint §2 |
-| Thm. 10.2.1.1, p. 440 and strip version pp. 445–446 | A cyclic cubic Hecke factor in an explicit degree-six field supplies actual repeated zeros for the divergent endpoint jet. | Supplement p. 4 |
-| Lemma 10.4.2.5, pp. 461–462 | The lifting conclusion fails on a Hilbert space with uniformly bounded biorthogonal vectors. | Supplement p. 5 |
-| Lemma 9.3.2.5, pp. 425–426 | Simple sparse pairs obstruct the claimed basis even after closing the convolution ideal. | Preprint §3 |
-| Thm. 12.5.1.1, pp. 519–520 | Quadratic factorization and three fixed tests contradict the printed global normalization at any common strip width. | Preprint §§4–5 |
+| Thm. 10.3.1.1(2), p. 448 | Over a specified quaternion number field, the printed scalar trace exceeds the actual trace of a trace-class test operator by at least one. | Preprint §2, Report §1 |
+| Thm. 12.5.1.1, pp. 519–520 | Quadratic factorization over Q(√5) and three fixed tests contradict the printed global normalization at every common strip width. | Preprint §§4–5 |
+| Thm. 10.4.3.5(3), pp. 472–473 | After spectral projection, convolution can send a vector outside the range of every proposed approximant. | Preprint §2, Supplement pp. 1–3 |
+| Thms. 11.2.1.2(2) and 11.2.1.4(2), pp. 488–489 | The missing right-hand geometric projection changes the strong limit on one vector. The scalar traces need a separate argument. | Preprint §2, Supplement pp. 2–3 |
+| Thm. 6.3.2.1, pp. 304–307 | A test that satisfies both moment conditions gives a strictly positive difference on the overlap, where the proof requires equality. | Report §2.2 |
+| Thm. 7.1.2.3, pp. 317–318 | A rational Gaussian orbit sum tends to 2 where the claimed bound tends to 0. | Report §2.2 |
+| Thm. 10.2.1.1, p. 440, and strip version, pp. 445–446 | A cyclic cubic Hecke factor in an explicit degree-six field gives actual repeated zeros for the divergent endpoint jet. | Preprint §2, Supplement p. 4 |
+| Lemma 10.4.2.5, pp. 461–462 | The lifting conclusion fails on a Hilbert space with uniformly bounded biorthogonal vectors. | Preprint §2, Supplement p. 5 |
+| Lemma 9.3.2.5, pp. 425–426 | Simple sparse pairs of zeros block the claimed basis even after the convolution ideal is closed. | Preprint §3 |
 
-Page numbers refer to the 940-page manuscript dated 20 November 2026. Earlier work had already identified the p. 473 projection error and disproved the two pp. 488–489 operator limits in the arithmetic space. Section 2 credits those sources and gives an explicit all-width projection test. [Masullo’s manuscript](https://math216.wordpress.com/wp-content/uploads/2026/11/the-music-of-the-primes.pdf) · [Earlier discussion of operator order](https://github.com/mccorvie/riemann-masullo/issues/2469#issuecomment-7057757877) · [Earlier endpoint and normalization objections](https://github.com/mccorvie/riemann-masullo/issues/2469#issuecomment-7057757662)
+Earlier public work had already found the p. 473 projection error and disproved the two operator limits on pp. 488–489. The papers credit these and other prior objections where they overlap. See preprint §14 and the report's final section.
 
-Manuscript SHA-256: `e039d3f6cf0a4b14f03c7edb85097752dd65c0a2fe543c76fe992be234f97bf5`.
+## Repository layout
 
-## Reproduction
+```
+paper/      preprint.tex/.pdf, projection-supplement.tex/.pdf
+report/     report.md and report.pdf (detailed report)
+dossiers/   notes/*.md (six technical notes), build.py, verification-dossiers.pdf/.html
+checks/     check_*.py (exact-arithmetic checks), expected-output.txt
+Makefile    check, build and checksum targets
+SHA256SUMS  checksums of every tracked file
+```
 
-~~~sh
-sha256sum -c SHA256SUMS  # Verify the distributed files
-make check               # All six exact-arithmetic check scripts
-make check-z3            # Three additional Z3 assertions
-make pdf                 # Build the preprint and projection supplement in build/
-make second-audit        # Rebuild the second audit and verification dossiers
-~~~
+## Reproduce
 
-The standard checks require Python 3. The three additional assertions use the native Z3 shared library. Building the reports requires Pandoc, pdfLaTeX, XeLaTeX, and DejaVu fonts. The scripts verify finite algebraic and arithmetic statements. The analytic arguments and their assumptions appear in the proofs. [Recorded check output](reports/second-audit/check-results.txt)
+```sh
+sha256sum -c SHA256SUMS   # verify the distributed files
+make check                # run the six exact-arithmetic check scripts
+make check-z3             # three extra Z3 assertions (pip install z3-solver)
+make pdf                  # rebuild paper/*.pdf from LaTeX
+make report               # rebuild report/report.pdf
+make dossiers             # rebuild the verification dossiers
+```
+
+The checks need only Python 3 and use exact integer and rational arithmetic. Compare their output with [checks/expected-output.txt](checks/expected-output.txt). Building the documents needs pdfLaTeX, XeLaTeX, Pandoc and the DejaVu fonts. The scripts verify finite algebraic and arithmetic statements only. The analytic arguments are proved in the papers.
 
 ## Provenance
 
-GPT 6.2 Astra generated the analysis, agent cross-checks, text, and code in Codex. [deyvium](https://github.com/dvgyl) directed the investigation and requested independent verification. The work has not undergone human peer review.
+GPT 6.2 Astra generated the analysis, text and code in Codex. Claude Opus 5.5 checked and verified the proofs. [deyvium](https://github.com/dvgyl) directed the project. The work has not been peer reviewed by humans.

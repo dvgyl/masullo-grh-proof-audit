@@ -1,7 +1,7 @@
 """Exact finite checks for the contour and split-prime examples.
 
 The general estimates for all n and the convergence claims are proved in
-masullo-next-appendices.md. This script verifies finite arithmetic only.
+dossiers/notes/appendices.md. This script verifies finite arithmetic only.
 """
 from fractions import Fraction
 

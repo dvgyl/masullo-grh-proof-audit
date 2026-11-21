@@ -1,11 +1,13 @@
 """Exact arithmetic certificates for portions of the Chapter 6–8 audit.
 
-Run python3 masullo-next-synthesis-checks.py. Optional --z3 checks the first
-jet algebra and strip overlap with an installed native Z3 library. The Tate
+Run python3 checks/check_synthesis.py. Optional --z3 checks the first
+jet algebra and strip overlap with a native Z3 library (a system libz3 or the
+one bundled with `pip install z3-solver`). The Tate
 identities, Fourier transform, continuity and topological claims are proved
-in the accompanying report.
+in dossiers/notes/synthesis.md.
 """
 from fractions import Fraction as F
+from pathlib import Path
 import sys
 
 
@@ -33,12 +35,24 @@ def orbit_probe(t, units):
     return 2 * positive_valuations
 
 
-def verify_z3():
-    from ctypes import CDLL, c_char_p, c_void_p
+def find_z3_library():
     from ctypes.util import find_library
     path = find_library("z3")
+    if path:
+        return path
+    try:  # The z3-solver wheel ships its own shared library.
+        import z3
+    except ImportError:
+        return None
+    candidates = sorted((Path(z3.__file__).parent / "lib").glob("libz3.*"))
+    return str(candidates[0]) if candidates else None
+
+
+def verify_z3():
+    from ctypes import CDLL, c_char_p, c_void_p
+    path = find_z3_library()
     if not path:
-        raise RuntimeError("--z3 requires a native Z3 library")
+        raise RuntimeError("--z3 requires a native Z3 library (try: pip install z3-solver)")
     lib = CDLL(path)
     lib.Z3_mk_config.restype = c_void_p
     lib.Z3_mk_context.argtypes = [c_void_p]
