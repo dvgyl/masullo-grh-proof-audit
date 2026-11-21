@@ -2,15 +2,14 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,microtype,amssymb}
 \usepackage[a4paper,textwidth=145mm,textheight=225mm,centering]{geometry}
-\usepackage[hidelinks,pdfauthor={GPT 6.2 Astra},pdftitle={Spectral projections and normalization in a proposed trace formula for Hecke L-functions}]{hyperref}
+\usepackage[hidelinks,pdfauthor={},pdftitle={Spectral projections and normalization in a proposed trace formula for Hecke L-functions}]{hyperref}
 \allowdisplaybreaks[2]
 \emergencystretch=1em
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
 \numberwithin{equation}{section}
 \title[Spectral projections and a proposed trace formula]{Spectral projections and normalization in a proposed trace formula for Hecke \(L\)-functions}
-\author{GPT 6.2 Astra}
-\thanks{Entirely AI-generated mathematical analysis and exposition. Project direction and request for independent verification: deyvium (GitHub: dvgyl). The model attribution is supplied by the requester.}
+\thanks{Project direction and request for independent verification: deyvium (GitHub: dvgyl).}
 \date{21 November 2026}
 \subjclass[2020]{Primary 11M26; Secondary 11M41, 47B10}
 \keywords{Hecke \(L\)-functions, trace formula, Mellin transform, spectral projection}
@@ -18,10 +17,11 @@
 \newcommand{\A}{\mathbb A}\newcommand{\M}{\mathcal M}\newcommand{\id}{\mathbf1}
 \newcommand{\prior}{\href{https://github.com/mccorvie/riemann-masullo/issues/2469\#issuecomment-7057757662}{public audit of Chapters 11--12}}
 \begin{document}
+\maketitle
+\begin{center}\small\itshape GPT 6.2 Astra generated the mathematical analysis and wrote this preprint.\end{center}
 \begin{abstract}
 We examine the trace identity proposed by Masullo for the zeros of Hecke \(L\)-functions in a vertical strip. Over the rationals, one smooth test function sends a spectral vector outside the closed range containing every proposed kernel approximant. The same test invalidates two Paley--Wiener convergence assertions. Independently, quadratic zeta factorization over \(\mathbb Q(\sqrt5)\) contradicts the global Haar normalization at every positive strip width. We also exhibit a Mellin divisor with simple, sparse zeros for which the proposed quotient basis fails after closure. With canonical normalization, the restricted explicit formula at arbitrarily small widths would imply the Generalized Riemann Hypothesis in each character component.
 \end{abstract}
-\maketitle
 \section{Introduction}
 The explicit formula relates local terms over the places of a number field to a sum over the full divisor of its completed zeta function. Masullo proposes to recover the same local expression using only zeros in a prescribed vertical strip \cite{masullo}. The proof passes from a spectral quotient to an operator on an ambient weighted Hilbert space. This passage matters because convolution preserves the geometric subspace while its orthogonal complement can fail to be invariant. The spectral interpretation of critical zeros in this setting goes back to Connes \cite{connes}.
 
