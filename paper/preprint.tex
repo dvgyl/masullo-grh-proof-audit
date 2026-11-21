@@ -127,7 +127,7 @@ Thus the actual trace is \(\sum_{t\in Z} B(t)\). The printed multiplicity in (10
   \sum_{\substack{t\in Z\\ m_t\ge 2}} B(t) \ \ge B(0)=1 .
 \]
 \end{proof}
-For one-sided tests \(V^{-1}L^{-1}b(\log|g|/L)\) the same difference tends to one as integral \(L\to\infty\), by dominated convergence. The positive-width power-trace argument in the accompanying report addresses an offset strip. The centered, canonically normalized thin-window formula at p.~520 requires a separate arithmetic comparison.
+For one-sided tests \(V^{-1}L^{-1}b(\log|g|/L)\) the same difference tends to one as integral \(L\to\infty\), by dominated convergence. For even \(s\) the printed count \(\lfloor(s-1)/2\rfloor+1=s/2\) agrees with Connes's, so this trace counterexample needs odd \(s\); it does not address the manuscript's main choice \(s=2[F:\Q]\). The positive-width power-trace argument in the accompanying report addresses an offset strip. The centered, canonically normalized thin-window formula at p.~520 requires a separate arithmetic comparison.
 
 \subsection{A test of the lifting lemma in a Hilbert space}
 \textbf{Lemma 10.4.2.5, pp.~461--462.} The Markushevich alternative permits a normalized complete biorthogonal system as input and asserts in particular that its lifts form a Schauder basis in their closed span. These are different properties. Here the quotient map is the identity, so there is no freedom to select better lifts.
@@ -176,7 +176,7 @@ Terms of a convergent series in a topological vector space must tend to zero. Th
 \begin{theorem}Over \(\Q(\sqrt5)\), the printed full-window formula gives distinct geometric and spectral values on a single smooth radial test.\end{theorem}\begin{proof}
 Write \(V=\bar\mu_1(C_F^1)\) for the volume of the norm-one idèle class group. In norm coordinates the paper's measure on \(C_F\) gives a radial function \(h(t)\) the Mellin transform \(V\int_0^\infty h(t)t^z\,dt/t\). Remark 9.2.0.1 explicitly distinguishes this measure from the canonical one, \(V^{-1}\bar\mu\). Appendix B uses the canonical factor at each global pole and zero in the explicit formula. Equation (12.5.1.3) defines its transform using \(\bar\mu\) without the division. The local coefficients agree for totally real fields. Radial tests select just the Dedekind zeta component by orthogonality on \(C_F^1\).
 
-Take \(F=\Q(\sqrt5)\), \(I=[-1,1]\). This is a full window since the strip is centered at \(1/2\); the introduction allows every positive width (pp.~27, 53). The discriminant is \(5\), there are two real places, and the Minkowski bound \(\sqrt5/2<2\) gives class number one. A fundamental unit is \(\epsilon=(1+\sqrt5)/2\). For \(1<u<\epsilon\) a unit of norm \(-1\) would give an integral trace strictly between 0 and 1, and a unit of norm \(+1\) a trace strictly between 2 and 3. Hence (A.3.2.1) gives
+Take \(F=\Q(\sqrt5)\), \(I=[-1,1]\). This is a full window: the open strip \(-1/2<\Re z<3/2\) contains every zero of the completed Dedekind zeta function, and \(L(c)\) denotes the completed \(L\)-function (p.~152); the introduction allows every positive width (pp.~27, 53). The discriminant is \(5\), there are two real places, and the Minkowski bound \(\sqrt5/2<2\) gives class number one. A fundamental unit is \(\epsilon=(1+\sqrt5)/2\). For \(1<u<\epsilon\) a unit of norm \(-1\) would give an integral trace strictly between 0 and 1, and a unit of norm \(+1\) a trace strictly between 2 and 3. Hence (A.3.2.1) gives
 \[
        V=\frac{2\log\epsilon}{\sqrt5}<1
        \qquad (\log\epsilon<\epsilon-1).
@@ -219,7 +219,7 @@ Define \(B(z)=\int h(t)t^zdt/t\), and let \(S_1,S_5,S_K\) denote the pole terms 
 \]
 for the \emph{same open window}, with exact addition even for coincident zeros.
 
-Here is the arithmetic behind that assertion. For \(p\ne5\), if \(p\) splits in \(K\) the product has local factor \((1-p^{-s})^{-2}\). If \(p\) is inert it has factor \((1-p^{-2s})^{-1}\). For \(p=5\) the ramified quadratic character contributes no Euler factor, giving \((1-5^{-s})^{-1}\) as required. The two real gamma factors agree because the quadratic character is even and \(K\) is totally real. The conductor and discriminant completions agree up to nonvanishing factors, irrelevant to the divisor. The two poles come from the trivial rational character; the quadratic completed function is nonzero at 0 and 1 by the usual nonvanishing at 1 and the functional equation. This proves the asserted divisor addition without information about zeros in the critical strip.
+Here is the arithmetic behind that assertion. For \(p\ne5\), if \(p\) splits in \(K\) both \(\zeta_K\) and \(\zeta\,L(\cdot,\chi_5)\) have local factor \((1-p^{-s})^{-2}\). If \(p\) is inert both have factor \((1-p^{-2s})^{-1}\). For \(p=5\) the ramified quadratic character contributes no Euler factor, giving \((1-5^{-s})^{-1}\) as required. The two real gamma factors agree because the quadratic character is even and \(K\) is totally real. The conductor and discriminant completions agree up to nonvanishing factors, irrelevant to the divisor. The two poles come from the trivial rational character; the quadratic completed function is nonzero at 0 and 1 by the usual nonvanishing at 1 and the functional equation. This proves the asserted divisor addition without information about zeros in the critical strip.
 
 Now \(\bar\mu_1(C_\Q^1)=1\) but \(\bar\mu_1(C_K^1)=V\ne1\) as computed in \S\ref{sec:3}. Were all three printed formulas true they would give
 \[
@@ -317,7 +317,7 @@ The antecedent Proposition 11.1.1.2 is worded differently: its \(J_F(\alpha)\) i
 The bound is square integrable on \(t\ge1/\Lambda\) with the logarithmic polynomial weight times \(dt/t\). This repairs dominated convergence for those rational fixed inputs at fixed cutoff. It gives no uniform operator trace estimate.
 
 \subsection*{Two obstructions on p.~495}
-In (11.3.2.2), integrate in \(g\in E_\Q^1\) with the indicated angular Haar measure. For fixed \(x,\xi\), the first indicator of the section requires \(\xi gx=\tau(|x|)\). There is at most one \(g\). Singletons have zero mass in the profinite unit direction \(\widehat{\Z}^{\times}\); hence every integral and the whole proposed weight vanish. The normalized indentation in (12.2.2.1--2), p.~508, cannot be obtained this way. This conclusion uses the ordinary function and measure interpretation of the printed expression.
+In (11.3.2.2), integrate in \(g\in E_\Q^1\) with the angular Haar measure \(\mu_1\) (none is printed in (11.3.2.2)). For fixed \(x,\xi\), the first indicator of the section requires \(\xi gx=\tau(|x|)\). There is at most one \(g\). Singletons have zero mass in the profinite unit direction \(\widehat{\Z}^{\times}\); hence every integral and the whole proposed weight vanish. The normalized indentation in (12.2.2.1--2), p.~508, cannot be obtained this way. This conclusion uses the ordinary function and measure interpretation of the printed expression.
 
 Independently, the sets \(A_j\) with indicators \(\alpha_j\) decrease. In the second variable the factor in (11.3.2.3) is \((\alpha_{k+1}-\alpha_k)\alpha_j=0\) for \(j\ge k+1\). The proposed limit is zero. For \(\Q,\ S=\{\infty\},\ p=2\), an allowed radial bump supported near norm 2 with value one there has a strictly positive orbital right side in (11.3.2.1) from \(\pi_2^{-1}\). The advertised general computation fails. On p.~520 only sufficiently large primes are used, for which that right side is zero; this example alone does not disprove those special vanishings.
 
@@ -352,7 +352,7 @@ In the half-plane of absolute convergence the finite prime-power sum for this ch
     \sum_p\sum_{m\ge1}(\log p)\,p^{-m(z+1/2)}
         =-\frac{\zeta'}{\zeta}(z+1/2).
 \]
-This is the derivative of the Euler product with its sign restored. Reversing the sign cannot restore the failed archimedean bound.
+This is \(-\zeta'/\zeta(z+1/2)\), the negative of the logarithmic derivative the manuscript claims. Reversing the sign cannot restore the failed archimedean bound.
 
 \subsection*{A concrete regularization of the real-place piece}
 For the limiting radial tests at \(z,z_0\) with positive real parts, subtract them before taking the local integral. The difference at the real place has the ordinary integral
@@ -427,7 +427,7 @@ The Gaussian divided-difference test has a direct antecedent in the \href{https:
 
 \textbf{Possible contributions of this audit.} The two results for which we specifically checked prior objections are the single-character, closed-ideal, sparse-pair construction in \S\ref{sec:2} and the same three fixed probes for every window in \S\ref{sec:4}. Both arguments were independently reproduced. We found no exact match for either construction in the inspected discussions or in targeted web and repository searches. Related interpolation and normalization mechanisms are established, and some public discussion threads were only partially accessible. No priority claim for either construction follows from this search.
 
-\textbf{Arithmetic reproduction.} Run the accompanying Python verification script. It uses exact fractions, integer square roots and a proved geometric remainder for the log series to certify the volume enclosure given in the text. It verifies three exact zero counts for the product in \S\ref{sec:5} and exhausts all membership triples for the nested-shell identity. The infinite-dimensional and meromorphic arguments are proved in the text.
+\textbf{Arithmetic reproduction.} Run the accompanying Python verification script. It uses exact fractions, integer square roots and a proved geometric remainder for the log series to certify the enclosure \(0.430408940964<V<0.430408940965\), which refines \(V<1\). It verifies three exact zero counts for the product in \S\ref{sec:5}, the bound on \(D_0(0)\) and the block-projection norms used in \S\ref{sec:central}, and exhausts all membership triples for the nested-shell identity. The infinite-dimensional and meromorphic arguments are proved in the text.
 
 
 \begin{thebibliography}{9}

@@ -19,7 +19,7 @@ Page and equation numbers refer to the 940-page manuscript dated 20 November 202
 
 | Manuscript reference | Result | Where |
 | --- | --- | --- |
-| Thm. 10.3.1.1(2), p. 448 | Over a specified quaternion number field, the printed scalar trace exceeds the actual trace of a trace-class test operator by at least one. | Preprint §2, Report §1 |
+| Thm. 10.3.1.1(2), p. 448 | At Sobolev degree 3, over a specified quaternion number field, the printed scalar trace exceeds the actual trace of a trace-class test operator by at least one. This needs odd degree: for even degree the printed count agrees with Connes's. | Preprint §2, Report §1 |
 | Thm. 12.5.1.1, pp. 519–520 | Quadratic factorization over Q(√5) and three fixed tests contradict the printed global normalization at every common strip width. | Preprint §§4–5 |
 | Thm. 10.4.3.5(3), pp. 472–473 | After spectral projection, convolution can send a vector outside the range of every proposed approximant. | Preprint §2, Supplement pp. 1–3 |
 | Thms. 11.2.1.2(2) and 11.2.1.4(2), pp. 488–489 | The missing right-hand geometric projection changes the strong limit on one vector. The scalar traces need a separate argument. | Preprint §2, Supplement pp. 2–3 |

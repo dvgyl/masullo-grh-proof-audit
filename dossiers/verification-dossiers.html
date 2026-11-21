@@ -2492,9 +2492,11 @@ the resulting assertion is false for the full stated choice of section.
 This is an additional mathematical difficulty independent of the
 rational archimedean-factor error treated below. The conclusion concerns
 the capped formula of Chapter 13, not the uncapped Chapter 12 formula.
-The blank Theorem 13.3.1.2 has no formal statement to refute. The
-discussion on pp. 528–529 does specify which point is declared central
-using the section.</p>
+The blank Theorem 13.3.1.2 has no formal statement to refute. Pages
+528–529 characterize the central point intrinsically and then assert,
+for any fixed section τ, that it is s=1/2−ix₀. For the spiral section
+that assertion is itself false, and neither page explicitly restricts
+τ.</p>
 <p><strong>Arithmetic input.</strong> Set K = Q(i) and let E over Q be
 the congruent-number curve y² = x³ − n²x, n = 1254 = 2·3·11·19. The
 group E(Q)/2E(Q) has dimension at least four over F₂. Indeed the
@@ -2598,31 +2600,32 @@ points and derivatives of L-series</em>, Invent. Math.
 <strong>84</strong> (1986), 225–320; V. A. Kolyvagin, <em>Finiteness of
 E(Q) and Ш(E,Q) for a subclass of Weil curves</em>, Math. USSR-Izv.
 <strong>32</strong> (1989), 523–541; and the CM theorem cited at
-manuscript (14.1.2.7). The script checks/check_trace.py verifies the
-finite rank certificate only. The CM, root-number, and analytic-rank
-implications are theorems, not machine proofs of this entire
-argument.</p>
+manuscript (14.1.2.7). The script checks/check_trace.py verifies, for
+the CM argument, only the finite rank certificate. The CM, root-number,
+and analytic-rank implications are theorems, not machine proofs of this
+entire argument.</p>
 <p><strong>Verification on the actual original measures.</strong> Over
 K=Q(i), the compact volume from (A.3.2.1) is V=π/4 (discriminant 4,
 class number one, four roots of unity, regulator one). The compact
 character of χ is nontrivial owing to angular type ±1, so both pole
 terms vanish. Comparing the unmodified p. 522 to the classical formula
 leaves coefficients mλ−V·1(line)min(mλ,2) multiplying B(λ)exp(λu).
-Finite local coefficients coincide except possibly at the one place
-above 2 by (A.3.2.2); its unit volume need not be assumed to be one. The
-support of φᵤ at any one place implies log|g|∈u+[1,2]. At the complex
-place, |1−g|_v≥C|g|_v for large u. The multiplicative Haar mass of that
-annulus is independent of u. At the finite place, |1−g|_v=|g|_v, each
-valuation shell has fixed Haar mass, and only a bounded number of shells
-occur as u varies. The tests are uniformly bounded. Thus either local
-difference is O(exp(−u/2)), and is bounded uniformly also on compact u
-intervals (the supports avoid g=1). Its Laplace transform is holomorphic
-for Re w&gt;−1/2. The spectral difference has residue
-(m−2V)B(0)=(m−π/2)B(0)≠0 at w=0. Hence a member of the same admissible
-family fails the original identity too. The third-party proof gives the
-analogous archimedean estimate with normalized volumes; this calculation
-keeps the original shape of every finite unit factor, including the
-ramified one. This is a verification of an earlier mechanism.</p>
+Finite local coefficients coincide except at the place above 2, where
+μ_v(O_v<sup>×)=|−4|₂</sup>{1/2}=1/2 by (A.3.2.2) makes them differ by a
+factor 2; this term is O(e^{−u/2}) and harmless. The support of φᵤ at
+any one place implies log|g|∈u+[1,2]. At the complex place,
+|1−g|_v≥C|g|_v for large u. The multiplicative Haar mass of that annulus
+is independent of u. At the finite place, |1−g|_v=|g|_v, each valuation
+shell has fixed Haar mass, and only a bounded number of shells occur as
+u varies. The tests are uniformly bounded. Thus either local difference
+is O(exp(−u/2)), and is bounded uniformly also on compact u intervals
+(the supports avoid g=1). Its Laplace transform is holomorphic for Re
+w&gt;−1/2. The spectral difference has residue (m−2V)B(0)=(m−π/2)B(0)≠0
+at w=0. Hence a member of the same admissible family fails the original
+identity too. The third-party proof gives the analogous archimedean
+estimate with normalized volumes; this calculation keeps the original
+shape of every finite unit factor, including the ramified one. This is a
+verification of an earlier mechanism.</p>
 <h2 id="geometric-and-endgame-findings">Geometric and endgame
 findings</h2>
 <p><strong>Normalization in Theorem 12.5.1.1 (pp. 519–520).
@@ -2686,15 +2689,15 @@ same total is one. The corollary is false; the prior report was correct
 to resist announcing falsity for every possible reading of Proposition
 11.1.1.2. A termwise l¹-majorant on each orbit would suffice.</p>
 <p><strong>Fixed rational cutoffs, pp. 480–483. Resolved false
-alarm.</strong> For products of indicators applied to a single seed
-|f_n(ξg)|≤|f(ξg)|. For representatives g=τ(t)u with standard rational
-finite units, a fixed denominator D and real Schwartz bound dominate the
-total by C_N∑_{k≥1}(1+kt/D)^−N ≤ C’_N t^−N for N&gt;1 (use ∑ k^−N),
-uniformly in unit directions. Its square is integrable against a
-logarithmically polynomial weight dt/t on t≥1/Λ for fixed Λ, even after
-a fixed norm power by choosing N larger. Thus this mechanism repairs
-dominated convergence for these particular vectors. It does not imply
-convergence of operator traces.</p>
+alarm.</strong> For F=Q: for products of indicators applied to a single
+seed |f_n(ξg)|≤|f(ξg)|. For representatives g=τ(t)u with standard
+rational finite units, a fixed denominator D and real Schwartz bound
+dominate the total by C_N∑_{k≥1}(1+kt/D)^−N ≤ C’_N t^−N for N&gt;1 (use
+∑ k^−N), uniformly in unit directions. Its square is integrable against
+a logarithmically polynomial weight dt/t on t≥1/Λ for fixed Λ, even
+after a fixed norm power by choosing N larger. Thus this mechanism
+repairs dominated convergence for these particular vectors. It does not
+imply convergence of operator traces.</p>
 <p><strong>Page 495, Theorem 11.3.2.1. Established under the literal
 indicators and Haar integrals.</strong> The first factor of (11.3.2.2)
 restricts g∈E_F¹ to at most one value for fixed x,ξ because the norm
@@ -2810,13 +2813,13 @@ statement.</strong> For fixed F and unitary χ compare an all-zero
 explicit formula against an otherwise identical canonical formula on an
 open centered window, testing φ(g)=conjugate(χ(g))b(log|g|−u) with u
 large. Character orthogonality reduces the difference to ∑out mλ
-B(λ)e^{λu}. Its transform in u≥U is zero only if ∑out mλ
-e^{λU}B(λ)/(s−λ) is identically zero. For a candidate omitted λ₀,
-choosing b=e^{−λ₀x}h with ∫h=1 produces nonzero residue at λ₀. The zero
-count O(T log T) and uniform Schwartz decay justify both Fubini and
-meromorphic continuation. Every missing zero is excluded. Any sequence
-of positive widths tending to zero therefore implies GRH in this
-component. Conversely GRH gives the window identity by the usual
+B(λ)e^{λu}. Its transform over u≥U is e^{−sU}∑out mλ e^{λU}B(λ)/(s−λ),
+which vanishes only if the sum is identically zero. For a candidate
+omitted λ₀, choosing b=e^{−λ₀x}h with ∫h=1 produces nonzero residue at
+λ₀. The zero count O(T log T) and uniform Schwartz decay justify both
+Fubini and meromorphic continuation. Every missing zero is excluded. Any
+sequence of positive widths tending to zero therefore implies GRH in
+this component. Conversely GRH gives the window identity by the usual
 explicit formula with <em>full</em> multiplicities. This conditional
 argument does not supply the arithmetic identification of the projected
 trace.</p>
